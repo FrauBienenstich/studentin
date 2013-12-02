@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Studentin
   def initialize(n, v, f, m)
     @name = n
@@ -7,16 +8,15 @@ class Studentin
   end
  
   def to_string
-    puts "Name: " + @name + ", Vorname: " + @vorname + ", Studiengang: " + @studiengang + ", Matrikelnummer:" + @matrikelnummer.to_s
+    "Name: " + @name + ", Vorname: " + @vorname + ", Studiengang: " + @studiengang + ", Matrikelnummer:" + @matrikelnummer.to_s
   end
  
-  def wechseln
-    puts "In welches Fach ist die Studentin gewechselt? "
-    @neues_fach = "EM02"
+  def wechseln!
+    @studiengang = "EM02"
   end
  
   def drucke_wechsel
-    puts @vorname + " " + @name + " studiert jetzt " + @neues_fach
+    @vorname + " " + @name + " studiert jetzt " + @neues_fach
  
   end
  
@@ -24,6 +24,32 @@ end
  
 susi = Studentin.new("Müller", "Susanne", "Maschinenbau", 123456 )
  
-puts susi.to_string
-puts susi.wechseln
-puts susi.drucke_wechsel
+# puts susi.to_string
+# susi.wechseln!
+# puts susi.to_string
+
+class Studiengang
+
+  def initialize(name, fachbereich)
+    @name = name
+    @fachbereich = fachbereich
+  end
+
+  def to_string
+    @name + " (Fachbereich: " + @fachbereich + ")"
+  end
+
+end
+
+germanistik = Studiengang.new("Germanistik", "FB1")
+anglistik = Studiengang.new("Anglistik", "FB2").to_string
+
+
+uschi = Studentin.new("Maier", "Uschi", anglistik, 123456).to_string
+
+puts uschi
+
+
+
+
+
