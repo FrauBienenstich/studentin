@@ -1,6 +1,6 @@
 # encoding: UTF-8
-require 'studiengang'
-require 'course'
+require './studiengang.rb'
+require './course.rb'
 
 
 class Studentin

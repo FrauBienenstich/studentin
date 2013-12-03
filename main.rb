@@ -1,4 +1,9 @@
 # encoding: UTF-8
+require './studentin.rb'
+require './course.rb'
+require './studiengang.rb'
+
+
 susi = Studentin.new("Müller", "Susanne", "Maschinenbau", 123456, "Geschichte" )
  
 # puts susi.to_string

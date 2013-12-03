@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'studentin'
+require './studentin.rb'
 
 class Course
   @courses = []
