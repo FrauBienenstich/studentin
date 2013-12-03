@@ -8,12 +8,13 @@ class Studentin
     @name = name
     @vorname = vorname
     @studiengang = fach
+    puts @studiengang.inspect
     @matrikelnummer = matrikelnummer
     @kurs = kurs
   end
  
-  def to_string
-    "Name: " + @name + ", Vorname: " + @vorname + ", Studiengang: " + @studiengang + ", Matrikelnummer:" + @matrikelnummer.to_s + ", Kurs:" + @kurs.to_s
+  def to_s
+    "Name: " + @name + ", Vorname: " + @vorname + ", Studiengang: " + @studiengang.to_s + ", Matrikelnummer:" + @matrikelnummer.to_s + ", Kurs:" + @kurs.to_s
   end
  
   def wechseln!

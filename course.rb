@@ -28,7 +28,7 @@ class Course
     @count
   end
 
-  def self.check_amount
+  def self.check_amount #sollte instanzmethode auf studentin werden
     if self.count > 5 
       puts "Enuff!" 
     else
@@ -36,7 +36,7 @@ class Course
     end
   end
 
-  def to_string
+  def to_s
 
     " " + @title + "(Kursbeschreibung: " + @description + ")"
   end

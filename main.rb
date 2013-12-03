@@ -3,17 +3,36 @@ require './studentin.rb'
 require './course.rb'
 require './studiengang.rb'
 
+anglistik = Studiengang.new("Anglistik", "FB2")
+susi = Studentin.new("Müller", "Susanne", anglistik, 123456, "Geschichte" )
+puts anglistik
+puts susi
 
-susi = Studentin.new("Müller", "Susanne", "Maschinenbau", 123456, "Geschichte" )
+def belege(studentin, kurs)
+end
+
  
-# puts susi.to_string
-# susi.wechseln!
-# puts susi.to_string
+#  puts susi
+#  puts susi.to_s
+# # # susi.wechseln!
+# # # puts susi.to_s
 
 
 
-germanistik = Studiengang.new("Germanistik", "FB1")
-anglistik = Studiengang.new("Anglistik", "FB2").to_string
+# germanistik = Studiengang.new("Germanistik", "FB1")
+
+# array = ["hallo"]
+
+# puts array.to_s
+
+# class Animal
+# end
+
+# a = Animal.new
+# puts a
+# puts a.to_s
+
+
 
 
 kurs1 = Course.new("asdf", "jaifw")
@@ -25,11 +44,11 @@ kurs5 = Course.new("Quantum mechanics", "It deals with physical phenomena at mic
 kurs6 = Course.new("Time Travel", "What is life like in the future?")
 
 puts Course.count
-puts Course.all
+puts Course.all.inspect
 
-kurs6 = kurs6.to_string
-uschi = Studentin.new("Maier", "Uschi", anglistik, 123456, kurs6).to_string #neue Instanz von Studentin ruft gesetzte Instanz
-                                                                            # von Course und Studiengang auf.
-puts uschi
+# kurs6 = kurs6.to_s
+# uschi = Studentin.new("Maier", "Uschi", anglistik, 123456, kurs6).to_s #neue Instanz von Studentin ruft gesetzte Instanz
+#                                                                             # von Course und Studiengang auf.
+# puts uschi
 
-Course.check_amount
+# Course.check_amount

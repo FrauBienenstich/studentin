@@ -6,7 +6,7 @@ class Studiengang
     @fachbereich = fachbereich
   end
 
-  def to_string
+  def to_s
     @name + " (Fachbereich: " + @fachbereich + ")"
   end
 
