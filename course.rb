@@ -2,42 +2,37 @@
 require './studentin.rb'
 
 class Course
-  @courses = []
-  @count = 0
-  def initialize(title, description)
+  attr_reader :studentinnen
+
+  def initialize(title, description, studiengang)
     @title = title
     @description = description
-    Course.add
-    Course.push
-    #@courses 
-  end
-
-  def self.push # adds stuff to array
-    @courses << self
-  end
-
-  def self.all # returns all elements of array
-    @courses
-  end
-
-  def self.add # counts/adds up when new Course in initialized (is called in initialize method)
-    @count += 1
-  end
-
-  def self.count # returns the count
-    @count
-  end
-
-  def self.check_amount #sollte instanzmethode auf studentin werden
-    if self.count > 5 
-      puts "Enuff!" 
-    else
-      puts "need moar!"
-    end
+    @studiengang = studiengang
   end
 
   def to_s
-
-    " " + @title + "(Kursbeschreibung: " + @description + ")"
+    "#{@title} (Kursbeschreibung: #{@description}), Studiengang: #{@studiengang}"
   end
+
+  def enlist(studentin)
+    @studentinnen ||= []
+    @studentinnen << studentin
+  end
+
+  def drop_out(studentin)
+    @studentinnen.delete(studentin)
+  end
+
+  def free
+    if @studentinnen <= 5
+      # 
+    else
+      #
+    end
+  end
+
 end
+
+#kurs ist voll bei 5 studentin
+#studentinnen können sich nicht mehr einschreiben, wenn mehr als 5
+#methode schreiben, die überprüft ob frei
