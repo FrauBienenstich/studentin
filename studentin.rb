@@ -4,15 +4,14 @@ require './course.rb'
 
 
 class Studentin
-  def initialize(name, vorname, fach, matrikelnummer, kurs)
   
   attr_reader :courses
+
+  def initialize(name, vorname, fach, matrikelnummer)
     @name = name
     @vorname = vorname
     @studiengang = fach
-    puts @studiengang.inspect
     @matrikelnummer = matrikelnummer
-    @kurs = kurs
   end
  
   def to_s
