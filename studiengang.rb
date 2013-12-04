@@ -7,7 +7,7 @@ class Studiengang
   end
 
   def to_s
-    @name + " (Fachbereich: " + @fachbereich + ")"
+    "#{@name} (Fachbereich: #{@fachbereich})"
   end
 
 end
