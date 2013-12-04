@@ -5,6 +5,8 @@ require './course.rb'
 
 class Studentin
   def initialize(name, vorname, fach, matrikelnummer, kurs)
+  
+  attr_reader :courses
     @name = name
     @vorname = vorname
     @studiengang = fach
