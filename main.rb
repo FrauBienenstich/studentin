@@ -18,18 +18,24 @@ students << mimi = Studentin.new("Müller", "Mimi", germanistik, 123116 )
 students << lili = Studentin.new("Müller", "Lili", anglistik, 1234564 )
 students << anna = Studentin.new("Müller", "Anna", anglistik, 1243456 )
 students << emma = Studentin.new("Müller", "Emma", anglistik, 1123456 )
-
+students << helga = Studentin.new("Müller", "Helga", anglistik, 1123456 )
 
 students.each do |s|
   puts s
 end
 
-kurs1.gain(susi)
-kurs1.gain(lulu)
-kurs1.gain(lili)
-kurs1.gain(mimi)
-kurs1.gain(anna)
-kurs1.gain(emma)
+susi.join_course(kurs1)
+lulu.join_course(kurs1)
+mimi.join_course(kurs1)
+lili.join_course(kurs1)
+anna.join_course(kurs1)
+emma.join_course(kurs1)
+helga.join_course(kurs1)
 
+helga.leave_course(kurs1)
 
 puts kurs1.studentinnen.length
+
+susi.wechseln!(germanistik)
+puts susi
+
