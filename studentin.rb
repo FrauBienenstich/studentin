@@ -21,12 +21,9 @@ class Studentin
     "Name: #{@name}, Vorname: #{@vorname}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}"
   end
  
-  def wechseln!
-    @studiengang = "EM02"
-  end
- 
-  def drucke_wechsel
-    @vorname + " " + @name + " studiert jetzt " + @neues_fach
+  def wechseln!(studiengang)
+    @studiengang = studiengang
+    puts "#{self.vorname} #{self.name} hat in den Studiengang #{self.studiengang} gewechselt."
   end
 
   def join_course(course) # NB!!!! 
@@ -34,9 +31,9 @@ class Studentin
       course.gain(self) #wischdischhh: calls on same course "enlist". if this method returns 
                         #exception --> rescue! and false (method unsuccesful but not stopped?)
       @courses << course # adds course to @courses array
-      return true
-    rescue
-      return false
+      #return true
+    rescue Exception => e
+      puts e
     end
   end
 
