@@ -6,6 +6,7 @@ require './course.rb'
 class Studentin
   
   attr_reader :courses
+  attr_accessor :studiengang
 
   def initialize(name, vorname, fach, matrikelnummer)
     @name = name
@@ -29,13 +30,19 @@ class Studentin
 
   def join_course(course) # NB!!!!
     @courses ||= [] 
-    @courses << course # adds course to @courses array
-    course.enlist(self) #wischdischhh: calls on same course "enlist" 
+    begin
+      course.gain(self) #wischdischhh: calls on same course "enlist". if this method returns 
+                        #exception --> rescue! and false (method unsuccesful but not stopped?)
+      @courses << course # adds course to @courses array
+      return true
+    rescue
+      return false
+    end
   end
 
   def leave_course(course)
     @courses.delete(course) #deletes course from array
-    course.drop_out(self) #simultaneously calls "drop_out" on course
+    course.lose(self) #simultaneously calls "drop_out" on course
   end
 
   def all_courses

@@ -8,28 +8,27 @@ class Course
     @title = title
     @description = description
     @studiengang = studiengang
+    @studentinnen ||= []
+    puts "Ein neuer Kurs im Studiengang " + studiengang.name + " wurde angelegt!"
   end
 
   def to_s
     "#{@title} (Kursbeschreibung: #{@description}), Studiengang: #{@studiengang}"
   end
 
-  def enlist(studentin)
-    @studentinnen ||= []
-    @studentinnen << studentin
+  def gain(studentin)
+    if @studentinnen.length < 5
+      @studentinnen << studentin
+    else
+      raise "Course full"
+    end
   end
 
-  def drop_out(studentin)
+  def lose(studentin)
     @studentinnen.delete(studentin)
   end
 
-  def free
-    if @studentinnen <= 5
-      # 
-    else
-      #
-    end
-  end
+  # raise Exception.new("blabla")
 
 end
 
