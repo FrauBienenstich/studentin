@@ -3,6 +3,7 @@ require './studentin.rb'
 
 class Course
   attr_reader :studentinnen
+  attr_reader :title
 
   def initialize(title, description, studiengang)
     @title = title
@@ -19,8 +20,10 @@ class Course
   def gain(studentin)
     if @studentinnen.length < 5
       @studentinnen << studentin
+      puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}"
     else
       raise "Course full"
+      puts "#{self.title} ist voll"
     end
   end
 
