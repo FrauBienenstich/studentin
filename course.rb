@@ -22,16 +22,15 @@ class Course
       @studentinnen << studentin
       puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}"
     else
-      raise "Course full"
-      puts "#{self.title} ist voll"
+      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.name}")
     end
   end
 
   def lose(studentin)
     @studentinnen.delete(studentin)
+    puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen."
   end
 
-  # raise Exception.new("blabla")
 
 end
 
