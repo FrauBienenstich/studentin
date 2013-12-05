@@ -13,6 +13,7 @@ class Studentin
     @vorname = vorname
     @studiengang = fach
     @matrikelnummer = matrikelnummer
+    @courses ||= []
   end
  
   def to_s
@@ -28,8 +29,7 @@ class Studentin
     @vorname + " " + @name + " studiert jetzt " + @neues_fach
   end
 
-  def join_course(course) # NB!!!!
-    @courses ||= [] 
+  def join_course(course) # NB!!!! 
     begin
       course.gain(self) #wischdischhh: calls on same course "enlist". if this method returns 
                         #exception --> rescue! and false (method unsuccesful but not stopped?)
