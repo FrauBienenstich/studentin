@@ -20,7 +20,7 @@ class Course
   def gain(studentin)
     @studentinnen.each do |s|
       if s.vorname == studentin.vorname
-        raise Exception.new("#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.")
+        raise Exception.new("\n#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.\n")
       end
     end
     #does that work?
@@ -28,9 +28,9 @@ class Course
 
     if @studentinnen.length < 2 
       @studentinnen << studentin
-      puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}"
+      puts "\n#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}\n"
     else
-      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.name}")
+      raise Exception.new("\n#{self.title} ist voll, tut uns leid Frau #{studentin.name}.\n")
     end
 
   end
@@ -38,10 +38,10 @@ class Course
   def lose(studentin)
     @studentinnen.each do |s|
       if not s.vorname == studentin.vorname
-        puts "You can't leave a course that you are not participating in!"
+        puts "\nYou can't leave a course that you are not participating in! You are currently in the following courses: #{studentin.courses}\n"
       else
         @studentinnen.delete(studentin)
-        puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen."
+        puts "\n#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen.\n"
       end
     end
   end
