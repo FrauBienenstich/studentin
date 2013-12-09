@@ -17,12 +17,12 @@ courses << kurs3 = Course.new("Malen nach Zahlen", "In Windeseile zum neuen Van 
 students = []
 
 students << susi = Studentin.new("Müller", "Susanne", anglistik, 123456 )
-students << lulu = Studentin.new("Müller", "Lulu", anglistik, 9482892 )
-students << mimi = Studentin.new("Müller", "Mimi", germanistik, 123116 )
-students << lili = Studentin.new("Müller", "Lili", anglistik, 1234564 )
-students << anna = Studentin.new("Müller", "Anna", anglistik, 1243456 )
-students << emma = Studentin.new("Müller", "Emma", anglistik, 1123456 )
-students << helga = Studentin.new("Müller", "Helga", anglistik, 1123456 )
+students << lulu = Studentin.new("Knüller", "Lulu", anglistik, 9482892 )
+students << mimi = Studentin.new("Schnüller", "Mimi", germanistik, 123116 )
+students << lili = Studentin.new("Füller", "Lili", anglistik, 1234564 )
+students << anna = Studentin.new("Büller", "Anna", anglistik, 1243456 )
+students << emma = Studentin.new("Züller", "Emma", anglistik, 1123456 )
+students << helga = Studentin.new("Rüller", "Helga", anglistik, 1123456 )
 
 students.each do |s|
   puts s
@@ -43,14 +43,17 @@ puts kurs1.studentinnen.length
 
 susi.wechseln!(germanistik)
 
+system('clear')
+
 while true
 
-  puts "What Studentin are you looking for?"
+  puts "What Studentin are you looking for?\n"
 
   studentin = gets.chomp
   students.each do |s|
     if s.vorname == studentin
       @studentin = s
+      puts
       puts "I know her!" 
     # else
     #   puts "I have no idea who that is." --> has to go in again!
@@ -58,7 +61,8 @@ while true
     end
   end
 
-  puts "Do you want #{studentin} to join a course (please type in A) or to leave a course (please type in B)?"
+  puts "#{studentin} belegt die Kurse #{@studentin.courses}." #objekt aus array students
+  puts "Do you want #{studentin} to join a course (please type in A) or to leave a course (please type in B)?\n"
 
   purpose = gets.chomp
   if purpose == "A"
@@ -69,7 +73,7 @@ while true
     puts "This option is unknown to me"
   end
 
-  puts "Please enter the title of the course."
+  puts "\nPlease enter the title of the course.\n"#\n am Anfang der Zeile geht nicht
 
   course_title = gets.chomp
 
@@ -82,10 +86,15 @@ while true
   elsif purpose == "studentin.leave_course"
     @studentin.leave_course(@course)
   else 
-    puts "Don't know what's going on"
+    puts "\nDon't know what's going on"
   end
 
+
+
+  sleep 5
+  system('clear')
 end
+
 
     
   
