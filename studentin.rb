@@ -27,18 +27,26 @@ class Studentin
 
   def join_course(course)
     puts "calling join_course #{course}"
-    begin
-      course.gain(self) 
-      @courses << course
-    rescue Exception => e
-      puts e
+    if course
+      begin
+        course.gain(self) 
+        @courses << course
+      rescue Exception => e
+        puts e
+      end
+    else
+      puts "This course does not exist!"
     end
   end
 
   def leave_course(course)
     puts "calling leave course with parameters #{course}"
-    @courses.delete(course) #deletes course from array
-    course.lose(self) #simultaneously calls "drop_out" on course
+    if course#!!!!!!! kein kurs, was wenn man B aufruft? vermeiden dass while loop
+      @courses.delete(course) #deletes course from array
+      course.lose(self) #simultaneously calls "drop_out" on course
+    else
+
+    end
   end
 
   def all_courses
