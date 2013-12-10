@@ -36,13 +36,12 @@ class Course
   end
 
   def lose(studentin)
-    @studentinnen.each do |s|
-      if not s.vorname == studentin.vorname
-        puts "\nYou can't leave a course that you are not participating in! You are currently in the following courses: #{studentin.courses}\n"
-      else
-        @studentinnen.delete(studentin)
-        puts "\n#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen.\n"
-      end
+    puts "now losing #{studentin.vorname} #{@studentinnen.length}"
+    if @studentinnen.include?(studentin)
+      @studentinnen.delete(studentin)
+      puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen."
+    else
+      puts "You can't leave a course that you are not participating in! You are currently in the following courses: #{studentin.courses}"
     end
   end
 
