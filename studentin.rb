@@ -26,6 +26,7 @@ class Studentin
   end
 
   def join_course(course)
+    puts "calling join_course #{course}"
     begin
       course.gain(self) 
       @courses << course
@@ -35,12 +36,21 @@ class Studentin
   end
 
   def leave_course(course)
+    puts "calling leave course with parameters #{course}"
     @courses.delete(course) #deletes course from array
     course.lose(self) #simultaneously calls "drop_out" on course
   end
 
   def all_courses
     @courses 
+  end
+
+  def print_courses
+    if @courses.empty?
+      puts "The student is currently not taking part in any courses."
+    else
+      puts "#{self.name} takes part in the following course: #{self.all_courses}."
+    end
   end
 
   def check_amount_courses 
