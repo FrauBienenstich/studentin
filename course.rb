@@ -18,19 +18,25 @@ class Course
   end
 
   def gain(studentin)
+    puts "calling gain #{studentin}"
     @studentinnen.each do |s|
       if s.vorname == studentin.vorname
-        raise Exception.new("\n#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.\n")
+
+        raise Exception.new("#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.")
+
       end
     end
-    #does that work?
 
 
     if @studentinnen.length < 2 
       @studentinnen << studentin
-      puts "\n#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}\n"
+      puts
+      puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}"
+      puts
     else
-      raise Exception.new("\n#{self.title} ist voll, tut uns leid Frau #{studentin.name}.\n")
+
+      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.name}.")
+
     end
 
   end
