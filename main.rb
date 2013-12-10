@@ -47,22 +47,36 @@ system('clear')
 
 while true
 
-  puts "What Studentin are you looking for?\n"
+  puts "What Studentin are you looking for?"
+  puts
 
   studentin = gets.chomp
+
+
   students.each do |s|
+
     if s.vorname == studentin
       @studentin = s
-      puts
-      puts "I know her!" 
-    # else
-    #   puts "I have no idea who that is." --> has to go in again!
+
+    #   puts
+    #   puts "I know her!"
+
+    # # else
+    # #   puts "I have no idea who that is." --> has to go in again!
+    # # end
     # end
     end
   end
 
-  puts "#{studentin} belegt die Kurse #{@studentin.courses}." #objekt aus array students
-  puts "Do you want #{studentin} to join a course (please type in A) or to leave a course (please type in B)?\n"
+  if @studentin
+    puts "I know her!"
+    @studentin.print_courses
+    puts "Do you want #{studentin} to join a course (please type in A) or to leave a course (please type in B)?"
+    puts
+  else
+    puts "I have no idea who that is."
+    next
+  end
 
   purpose = gets.chomp
   if purpose == "A"
@@ -70,10 +84,12 @@ while true
   elsif purpose == "B"
     purpose = "studentin.leave_course"
   else
-    puts "This option is unknown to me"
+    puts "This option is unknown to me" #TODO: and should also lead back!
   end
 
-  puts "\nPlease enter the title of the course.\n"#\n am Anfang der Zeile geht nicht
+  puts
+  puts "Please enter the title of the course."#\n am Anfang der Zeile geht nicht
+  puts
 
   course_title = gets.chomp
 
@@ -86,13 +102,14 @@ while true
   elsif purpose == "studentin.leave_course"
     @studentin.leave_course(@course)
   else 
-    puts "\nDon't know what's going on"
+    puts
+    puts "Don't know what's going on"
   end
 
 
 
   sleep 5
-  system('clear')
+  #system('clear')
 end
 
 
