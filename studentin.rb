@@ -79,7 +79,17 @@ class Studentin
   end
 
   def self.read
-    puts "importing"
+    list = []
+    database = File.open("database.txt", "r")
+    database.each do |line|
+
+      list << Studentin.new(line.to_s.split(" "))
+
+      line.split()
+    end
+
+
+
     # file öffnen (r)
     # for each line
     #    create a blank studentin
@@ -87,6 +97,7 @@ class Studentin
     #    id, nachname, vorname, matnr, fachbereich
     #    add to @studentinnen
     # close file
+    list
   end
 
   def self.write(list)
