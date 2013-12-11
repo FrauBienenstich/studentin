@@ -45,112 +45,6 @@ susi.wechseln!(germanistik)
 
 system('clear')
 
-# while true
-
-#   puts "What Studentin are you looking for?"
-#   puts
-
-#   studentin = gets.chomp
-
-
-#   students.each do |s|
-
-#     if s.vorname == studentin
-#       @studentin = s
-
-#     #   puts
-#     #   puts "I know her!"
-
-#     # # else
-#     # #   puts "I have no idea who that is." --> has to go in again!
-#     # # end
-#     # end
-#     end
-#   end
-
-#   if @studentin
-#     puts "I know her!"
-#     @studentin.print_courses
-#     puts "Do you want #{studentin} to join a course (please type in A) or to leave a course (please type in B)?"
-#     puts
-#   else
-#     puts "I have no idea who that is."
-#     next
-#   end
-
-#   purpose = gets.chomp
-#   if purpose == "A"
-#     purpose = "studentin.join_course"
-#   elsif purpose == "B"
-#     purpose = "studentin.leave_course"
-#   else
-#     puts "This option is unknown to me" #TODO: and should also lead back!
-#   end
-
-#   # puts
-#   # puts "Please enter the title of the course."#\n am Anfang der Zeile geht nicht
-#   # puts
-
-#   # course_title = gets.chomp
-
-#   # courses.each do |c|
-#   #   @course = c if course_title == c.title
-#   # end 
-
-#   while @course == nil do
-#     puts "Please enter the title of the course."
-
-#     course_title = gets.chomp
-
-#     courses.each do |c|
-#       @course = c if course_title == c.title
-#     end
-
-#     unless @course
-#       put
-#   end
-
-#   # puts "Please enter the title of the course."
-#   # course_title = gets.chomp
-
-#   # courses.each do |c|
-#   #     @course = c if course_title == c.title
-#   # end
-
-#   if purpose == "studentin.join_course"
-#     if @course
-#       @studentin.join_course(@course)
-#     else puts "Gimme a real course!"
-#     end
-
-#   elsif purpose == "studentin.leave_course"
-#     if @course
-#       @studentin.leave_course(@course)
-#     else
-#       puts "No course to leave here!"
-#     end
-#   end
-
-
-#     # if purpose == "studentin.join_course"
-#     #   @studentin.join_course(@course)
-#     # elsif purpose == "studentin.leave_course"
-#     #   @studentin.leave_course(@course)
-#     # else 
-#     #   puts
-#     #   puts "Don't know what's going on"
-#     # end
-
-
-
-#   sleep 5
-#   #system('clear')
-# end
-
-
- 
-
-
 @studentin = nil
 @purpose = nil
 @course = nil
@@ -211,6 +105,9 @@ def display_errors
   puts @errors.join
 end
 
+
+
+
 #def start
 
   while true
@@ -241,19 +138,19 @@ end
       @course = nil
     end
 
-    sleep 5
-    system('clear')
+    puts "Here is a list of all the students:"
 
+    
+    format = '%-3s %-10s %-10s %-10s %-15s'
+    puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
+    @students.each_with_index do |member, i|
+    puts format % [ i+1, member.name, member.studiengang.name, member.matrikelnummer, member.all_names]
+    
+    # sleep 5
+    # system('clear')
+  end
   end
 
 #end   
-  
-
-
-
-
-
-
-
 
 
