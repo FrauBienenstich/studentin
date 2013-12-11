@@ -2,6 +2,8 @@
 require './studentin.rb'
 require './course.rb'
 require './studiengang.rb'
+require './my_string.rb'
+
 
 subjects = []
 
@@ -50,7 +52,7 @@ system('clear')
 @course = nil
 
 def ask_for_studentin
-  puts "What Studentin are you looking for?"
+  puts "What Studentin are you looking for?".yellow
   studentin = gets.chomp #--> fragt nach Studentin und speihert sie in @studentin
 
   @students.each do |s|
@@ -60,15 +62,15 @@ def ask_for_studentin
   end
 
   if @studentin 
-    puts "I know her!"
+    puts "I know her!".yellow
   else
-    @errors << "Did not find student"
+    @errors << "Did not find student".red
   end
   #@studentin.print_courses
 end
 
 def ask_for_purpose
-  puts "Do you want #{@studentin.vorname} to join a course (please type in A) or to leave a course (please type in B)?"
+  puts "Do you want #{@studentin.vorname} to join a course (please type in A) or to leave a course (please type in B)?".yellow
   purpose = gets.chomp
 
   if purpose == "A"
@@ -78,18 +80,18 @@ def ask_for_purpose
   end
 
   if @purpose == "studentin.join_course"
-    puts "You chose join as action"
+    puts "You chose join as action".yellow
   elsif @purpose == "studentin.leave_course"
-    puts "You chose leave as action."
+    puts "You chose leave as action.".yellow
   end
 
   unless @purpose
-    @errors << "Don't know what to do!"
+    @errors << "Don't know what to do!".red
   end     
 end
 
 def ask_for_course
-  puts "Please enter the title of the course."
+  puts "Please enter the title of the course.".yellow
   course_title = gets.chomp
 
   @courses.each do |c|
@@ -97,7 +99,7 @@ def ask_for_course
   end
 
   unless @course
-    @errors << "That's not a course I know!"
+    @errors << "That's not a course I know!".red
   end     
 end
 
@@ -106,15 +108,13 @@ def display_errors
 end
 
 
-
-
 #def start
 
   while true
+
     @errors = []
 
-        puts "Here is a list of all the students:"
-
+        puts "Here is a list of all the students:".yellow
     
     format = '%-7s %-15s %-13s %-10s %-15s'
     puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
