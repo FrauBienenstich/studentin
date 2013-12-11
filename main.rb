@@ -16,44 +16,56 @@ subjects << germanistik = Studiengang.new("Germanistik", "FB8")
 @courses << kurs2 = Course.new("Schönschreiben", "Schreiben wie ein junger Gott!", anglistik)
 @courses << kurs3 = Course.new("Malen nach Zahlen", "In Windeseile zum neuen Van Gogh!", anglistik)
 
-@students = []
+system('clear')
 
-@students   << susi = Studentin.new("Müller", "Susanne", anglistik, 123456 )
-@students << lulu = Studentin.new("Knüller", "Lulu", anglistik, 9482892 )
-@students << mimi = Studentin.new("Schnüller", "Mimi", germanistik, 123116 )
-@students << lili = Studentin.new("Füller", "Lili", anglistik, 1234564 )
-@students << anna = Studentin.new("Büller", "Anna", anglistik, 1243456 )
-@students << emma = Studentin.new("Züller", "Emma", anglistik, 1123456 )
-@students << helga = Studentin.new("Rüller", "Helga", anglistik, 1123456 )
+@students = Studentin.read || []
+# if students doeas not exist, create bogus data
+if @students.length == 0
+  @students << susi = Studentin.new("Müller", "Susanne", anglistik, 123456 )
+  @students << lulu = Studentin.new("Knüller", "Lulu", anglistik, 9482892 )
+  @students << mimi = Studentin.new("Schnüller", "Mimi", germanistik, 123116 )
+  @students << lili = Studentin.new("Füller", "Lili", anglistik, 1234564 )
+  @students << anna = Studentin.new("Büller", "Anna", anglistik, 1243456 )
+  @students << emma = Studentin.new("Züller", "Emma", anglistik, 1123456 )
+  @students << helga = Studentin.new("Rüller", "Helga", anglistik, 1123456 )
+  
+  susi.join_course(kurs1)
+  lulu.join_course(kurs1)
+  mimi.join_course(kurs1)
+  lili.join_course(kurs1)
+  anna.join_course(kurs1)
+  emma.join_course(kurs1)
+  helga.join_course(kurs1)
+
+  helga.leave_course(kurs1)
+
+  puts kurs1.studentinnen.length
+
+  susi.wechseln!(germanistik)
+end
+
 
 @students.each do |s|
   puts s
 end
 
 
-susi.join_course(kurs1)
-lulu.join_course(kurs1)
-mimi.join_course(kurs1)
-lili.join_course(kurs1)
-anna.join_course(kurs1)
-emma.join_course(kurs1)
-helga.join_course(kurs1)
-
-helga.leave_course(kurs1)
-
-puts kurs1.studentinnen.length
-
-susi.wechseln!(germanistik)
-
-system('clear')
-
 @studentin = nil
 @purpose = nil
 @course = nil
+@wants_to_exit = false
+
+def ask
+  input = gets.chomp
+  if input.downcase == "exit"
+    raise "ApplicationWantsToExit"
+  end
+  return input
+end
 
 def ask_for_studentin
   puts "What Studentin are you looking for?".yellow
-  studentin = gets.chomp #--> fragt nach Studentin und speihert sie in @studentin
+  studentin = ask #--> fragt nach Studentin und speihert sie in @studentin
 
   @students.each do |s|
     if s.vorname == studentin
@@ -71,7 +83,7 @@ end
 
 def ask_for_purpose
   puts "Do you want #{@studentin.vorname} to join a course (please type in A) or to leave a course (please type in B)?".yellow
-  purpose = gets.chomp
+  purpose = ask
 
   if purpose == "A"
     @purpose = "studentin.join_course"
@@ -92,7 +104,7 @@ end
 
 def ask_for_course
   puts "Please enter the title of the course.".yellow
-  course_title = gets.chomp
+  course_title = ask
 
   @courses.each do |c|
     @course = c if course_title == c.title
@@ -108,13 +120,12 @@ def display_errors
 end
 
 
-#def start
 
-  while true
-
+while not @wants_to_exit
+  begin
     @errors = []
 
-        puts "Here is a list of all the students:".yellow
+    puts "Here is a list of all the students:".yellow
     
     format = '%-7s %-15s %-13s %-10s %-15s'
     puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
@@ -149,8 +160,12 @@ end
 
     # sleep 5
     # system('clear')
+  rescue
+    @wants_to_exit = true
   end
+end
 
-#end   
+Studentin.write(@students)
+
 
 
