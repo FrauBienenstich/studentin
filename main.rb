@@ -113,6 +113,15 @@ end
   while true
     @errors = []
 
+        puts "Here is a list of all the students:"
+
+    
+    format = '%-7s %-15s %-13s %-10s %-15s'
+    puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
+    @students.each_with_index do |member, i|
+      puts format % [ i+1, member.vorname + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
+    end
+
     unless @studentin
       ask_for_studentin
     end
@@ -138,17 +147,8 @@ end
       @course = nil
     end
 
-    puts "Here is a list of all the students:"
-
-    
-    format = '%-3s %-10s %-10s %-10s %-15s'
-    puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
-    @students.each_with_index do |member, i|
-    puts format % [ i+1, member.name, member.studiengang.name, member.matrikelnummer, member.all_names]
-    
     # sleep 5
     # system('clear')
-  end
   end
 
 #end   
