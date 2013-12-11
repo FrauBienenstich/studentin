@@ -78,6 +78,25 @@ class Studentin
     end
   end
 
+  def self.read
+    puts "importing"
+    # file öffnen (r)
+    # for each line
+    #    create a blank studentin
+    #    init with the following:
+    #    id, nachname, vorname, matnr, fachbereich
+    #    add to @studentinnen
+    # close file
+  end
+
+  def self.write(list)
+    database = File.open("database.txt", "w")
+    list.each do |studentin|
+      database.write( studentin.name + "," + studentin.vorname + "," + studentin.matrikelnummer.to_s + "," + studentin.studiengang.to_s )
+    end
+    database.close
+  end
+
 end
 
 
