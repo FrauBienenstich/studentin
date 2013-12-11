@@ -13,6 +13,15 @@ class Course
     puts "Ein neuer Kurs im Studiengang " + studiengang.name + " wurde angelegt!"
   end
 
+  def import #read file
+  end
+
+  def export #write to file
+    database = File.open("database.txt", "a")
+    database.puts "#{studentin}"
+    database.close
+  end
+
   def to_s
     "#{@title} (Kursbeschreibung: #{@description}), Studiengang: #{@studiengang}"
   end
@@ -22,7 +31,7 @@ class Course
     @studentinnen.each do |s|
       if s.vorname == studentin.vorname
 
-        raise Exception.new("#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.")
+        raise Exception.new("#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.".red)
 
       end
     end
@@ -31,23 +40,28 @@ class Course
     if @studentinnen.length < 2 
       @studentinnen << studentin
       puts
-      puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}"
+      puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}".yellow
       puts
     else
 
-      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.name}.")
+      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.name}.".red)
 
     end
 
   end
 
   def lose(studentin)
-    puts "now losing #{studentin.vorname} #{@studentinnen.length}"
+    puts "now losing #{studentin.vorname} #{@studentinnen.length}".yellow
     if @studentinnen.include?(studentin)
       @studentinnen.delete(studentin)
-      puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen."
+
+          database = File.open("database.txt", "a")
+          database.puts "#{studentin}"
+          database.close
+
+      puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen.".yellow
     else
-      puts "You can't leave a course that you are not participating in! You are currently in the following courses: #{studentin.courses}"
+      puts "You can't leave a course that you are not participating in! You are currently in the following courses: #{studentin.courses}".red
     end
   end
 
