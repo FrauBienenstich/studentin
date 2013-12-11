@@ -13,14 +13,11 @@ class Course
     puts "Ein neuer Kurs im Studiengang " + studiengang.name + " wurde angelegt!"
   end
 
-  def import #read file
-  end
-
-  def export #write to file
-    database = File.open("database.txt", "a")
-    database.puts "#{studentin}"
-    database.close
-  end
+  # def import #read file
+  #   database = File.open("database.txt", "r").each_line do |line|
+  #     line.delete if line == studentin
+  #   end
+  # end
 
   def to_s
     "#{@title} (Kursbeschreibung: #{@description}), Studiengang: #{@studiengang}"
@@ -52,12 +49,10 @@ class Course
 
   def lose(studentin)
     puts "now losing #{studentin.vorname} #{@studentinnen.length}".yellow
-    if @studentinnen.include?(studentin)
-      @studentinnen.delete(studentin)
 
-          database = File.open("database.txt", "a")
-          database.puts "#{studentin}"
-          database.close
+    if @studentinnen.include?(studentin)
+
+      @studentinnen.delete(studentin)
 
       puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen.".yellow
     else
