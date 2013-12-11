@@ -53,12 +53,13 @@ class Studentin
     @courses 
   end
 
-  def all_names
-    @all_names = []
+  def all_course_names
+    @all_course_names = []
     all_courses.each do |a|
-      @all_names << a.title
+      @all_course_names << a.title
     end
-    @all_names 
+
+    @all_course_names.to_s.gsub('"', '')
   end
 
   def print_courses
