@@ -5,7 +5,7 @@ require './course.rb'
 
 class Studentin
   
-  attr_reader :courses, :name, :vorname
+  attr_reader :courses, :name, :vorname, :matrikelnummer
   attr_accessor :studiengang
 
   def initialize(name, vorname, fach, matrikelnummer)
@@ -51,6 +51,14 @@ class Studentin
 
   def all_courses
     @courses 
+  end
+
+  def all_names
+    @all_names = []
+    all_courses.each do |a|
+      @all_names << a.title
+    end
+    @all_names 
   end
 
   def print_courses
