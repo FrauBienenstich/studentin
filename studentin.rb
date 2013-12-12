@@ -17,7 +17,7 @@ class Studentin
   end
  
   def to_s
-    "Name: #{@name}, Vorname: #{@vorname}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}"
+    "'Name: #{@name}, Vorname: #{@vorname}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}'"
   end
  
   def wechseln!(studiengang)
@@ -54,12 +54,12 @@ class Studentin
   end
 
   def all_course_names
-    @all_course_names = []
+    all_course_names = []
     all_courses.each do |a|
-      @all_course_names << a.title
+      all_course_names << a.title
     end
 
-    @all_course_names.to_s.gsub('"', '')
+    all_course_names.to_s.gsub('"', '')
   end
 
   def print_courses
@@ -82,36 +82,20 @@ class Studentin
     list = []
     database = File.open("database.txt", "r")
     database.each do |line|
-
-      list << Studentin.new(line.to_s.split(" "))
-
-      line.split()
+      fields = line.chomp.split(",")
+      list << Studentin.new(*fields)
     end
-
-
-
-    # file öffnen (r)
-    # for each line
-    #    create a blank studentin
-    #    init with the following:
-    #    id, nachname, vorname, matnr, fachbereich
-    #    add to @studentinnen
-    # close file
     list
   end
 
   def self.write(list)
     database = File.open("database.txt", "w")
     list.each do |studentin|
-      database.write( studentin.name + "," + studentin.vorname + "," + studentin.matrikelnummer.to_s + "," + studentin.studiengang.to_s )
+      course = studentin.courses.to_s
+      formatted_course = course.delete!(",")
+      database.puts( studentin.name + "," + studentin.vorname + "," + studentin.studiengang.to_s + "," + studentin.matrikelnummer.to_s )#+ "," + formatted_course )
     end
     database.close
   end
 
 end
-
-
-
-
-
-
