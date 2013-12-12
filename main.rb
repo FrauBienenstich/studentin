@@ -22,13 +22,13 @@ system('clear')
 
 # if students doeas not exist, create bogus data
 if @students.length == 0
-  @students << susi = Studentin.new("Müller", "Susanne", anglistik, 123456 )
-  @students << lulu = Studentin.new("Knüller", "Lulu", anglistik, 9482892 )
-  @students << mimi = Studentin.new("Schnüller", "Mimi", germanistik, 123116 )
-  @students << lili = Studentin.new("Füller", "Lili", anglistik, 1234564 )
-  @students << anna = Studentin.new("Büller", "Anna", anglistik, 1243456 )
-  @students << emma = Studentin.new("Züller", "Emma", anglistik, 1123456 )
-  @students << helga = Studentin.new("Rüller", "Helga", anglistik, 1123456 )
+  @students << susi = Studentin.new("1", "Müller", "Susanne", anglistik, 123456 )
+  @students << lulu = Studentin.new("2", "Knüller", "Lulu", anglistik, 9482892 )
+  @students << mimi = Studentin.new("3", "Schnüller", "Mimi", germanistik, 123116 )
+  @students << lili = Studentin.new("4", "Füller", "Lili", anglistik, 1234564 )
+  @students << anna = Studentin.new("5", "Büller", "Anna", anglistik, 1243456 )
+  @students << emma = Studentin.new("6", "Züller", "Emma", anglistik, 1123456 )
+  @students << helga = Studentin.new("7", "Rüller", "Helga", anglistik, 1123456 )
   
   susi.join_course(kurs1)
   lulu.join_course(kurs1)
@@ -115,6 +115,45 @@ def ask_for_course
   end     
 end
 
+def create_new_student
+  puts "What's the first name?"
+  new_first_name = ask
+
+  puts "What's the last name?"
+  new_last_name = ask
+
+  puts "What's the student's subject."
+  new_students_subject = ask
+
+  puts "Please give me the student's Matrikelnummer."
+  new_students_matrikelnummer = ask
+
+  new_id = @students.count + 1
+
+  puts "new student,yay?"
+
+  new_studentin = Studentin.new(new_id, new_first_name, new_last_name, new_students_subject, new_students_matrikelnummer )
+  @students << new_studentin
+
+  @studentin= new_studentin
+end
+
+
+def ask_for_new_student
+  puts "Do you want to add a new student to the list? Please answer with 'Y' or 'N'".yellow
+  answer = ask
+
+  if answer == "Y"
+    create_new_student
+    #nur student kreieren wenn yes
+  elsif answer == "N"
+    #continue to nextTODO
+    puts "TBD"
+  else
+    puts "I beg your pardon?"
+  end
+end
+
 def display_errors
   puts @errors.join
 end
@@ -125,12 +164,14 @@ while not @wants_to_exit
     puts "Here is a list of all the students:".yellow
     
     format = '%-7s %-15s %-13s %-10s %-15s'
-    puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
+    puts format % ['ID', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
     @students.each_with_index do |member, i|
-      puts format % [ i+1, member.vorname + " " + member.name, member.studiengang, member.matrikelnummer, member.all_course_names]
+      puts format % [ member.id, member.vorname + " " + member.name, member.studiengang, member.matrikelnummer, member.all_course_names]
       #puts format % [ i+1, member.vorname + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
       #member.studiengang.name
     end
+
+    ask_for_new_student
 
 
     unless @studentin
