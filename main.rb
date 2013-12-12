@@ -132,7 +132,7 @@ def create_new_student
 
   puts "new student,yay?"
 
-  new_studentin = Studentin.new(new_id, new_first_name, new_last_name, new_students_subject, new_students_matrikelnummer )
+  new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
   @students << new_studentin
 
   @studentin= new_studentin
@@ -145,12 +145,6 @@ def ask_for_new_student
 
   if answer == "Y"
     create_new_student
-    #nur student kreieren wenn yes
-  elsif answer == "N"
-    #continue to nextTODO
-    puts "TBD"
-  else
-    puts "I beg your pardon?"
   end
 end
 
@@ -172,7 +166,6 @@ while not @wants_to_exit
     end
 
     ask_for_new_student
-
 
     unless @studentin
       ask_for_studentin
