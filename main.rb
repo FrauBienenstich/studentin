@@ -19,6 +19,7 @@ subjects << germanistik = Studiengang.new("Germanistik", "FB8")
 system('clear')
 
 @students = Studentin.read || []
+
 # if students doeas not exist, create bogus data
 if @students.length == 0
   @students << susi = Studentin.new("Müller", "Susanne", anglistik, 123456 )
@@ -65,11 +66,10 @@ end
 
 def ask_for_studentin
   puts "What Studentin are you looking for?".yellow
-  studentin = ask #--> fragt nach Studentin und speihert sie in @studentin
-
+  @studentin = ask #--> fragt nach Studentin und speihert sie in @studentin
   @students.each do |s|
-    if s.vorname == studentin
-      @studentin = s # studentin objekt
+    if s.vorname == @studentin
+      puts @studentin = s # studentin objekt
     end #@studentin nicht nil, falls es angegebene Studentin gibt!, @studentin is eine Studentininstanz
   end
 
@@ -119,19 +119,19 @@ def display_errors
   puts @errors.join
 end
 
-
-
 while not @wants_to_exit
   begin
     @errors = []
-
     puts "Here is a list of all the students:".yellow
     
     format = '%-7s %-15s %-13s %-10s %-15s'
     puts format % ['Number', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
     @students.each_with_index do |member, i|
-      puts format % [ i+1, member.vorname + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
+      puts format % [ i+1, member.vorname + " " + member.name, member.studiengang, member.matrikelnummer, member.all_course_names]
+      #puts format % [ i+1, member.vorname + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
+      #member.studiengang.name
     end
+
 
     unless @studentin
       ask_for_studentin
