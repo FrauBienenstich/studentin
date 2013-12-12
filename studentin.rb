@@ -5,10 +5,11 @@ require './course.rb'
 
 class Studentin
   
-  attr_reader :courses, :name, :vorname, :matrikelnummer
+  attr_reader :courses, :name, :vorname, :matrikelnummer, :id
   attr_accessor :studiengang
 
-  def initialize(name, vorname, fach, matrikelnummer)
+  def initialize(id, name, vorname, fach, matrikelnummer)
+    @id = id
     @name = name
     @vorname = vorname
     @studiengang = fach
@@ -17,8 +18,16 @@ class Studentin
   end
  
   def to_s
-    "'Name: #{@name}, Vorname: #{@vorname}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}'"
+    "'ID: #{@id}, Name: #{@name}, Vorname: #{@vorname}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}'"
   end
+
+  # def new_studentin
+  #   Studentin.initialize
+
+  #   if @students.length == 0
+  # @students << susi = Studentin.new("1", "Müller", "Susanne", anglistik, 123456 )
+
+  # end
  
   def wechseln!(studiengang)
     @studiengang = studiengang
@@ -93,7 +102,7 @@ class Studentin
     list.each do |studentin|
       course = studentin.courses.to_s
       formatted_course = course.delete!(",")
-      database.puts( studentin.name + "," + studentin.vorname + "," + studentin.studiengang.to_s + "," + studentin.matrikelnummer.to_s )#+ "," + formatted_course )
+      database.puts( "#{studentin.id}" + "," + "#{studentin.name}" + "," + "#{studentin.vorname}" + "," + "#{studentin.studiengang}" + "," + "#{studentin.matrikelnummer.to_s}" )#+ "," + formatted_course )
     end
     database.close
   end
