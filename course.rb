@@ -13,12 +13,6 @@ class Course
     puts "Ein neuer Kurs im Studiengang " + studiengang.name + " wurde angelegt!"
   end
 
-  # def import #read file
-  #   database = File.open("database.txt", "r").each_line do |line|
-  #     line.delete if line == studentin
-  #   end
-  # end
-
   def to_s
     "#{@title} (Kursbeschreibung: #{@description}), Studiengang: #{@studiengang}"
   end
