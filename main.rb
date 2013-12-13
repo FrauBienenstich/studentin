@@ -138,7 +138,13 @@ def create_new_student
   new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
 
   @students.each do |s|
-    instance_studentin = s
+    @instance_studentin = s
+  end
+
+  unless new_studentin.name == @instance_studentin.name
+    @students << new_studentin
+  else
+    puts "This student already exists"
   end
 
   # unless new_studentin.name == instance_studentin.name
