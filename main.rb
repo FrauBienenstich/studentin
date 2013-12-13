@@ -82,19 +82,22 @@ def ask_for_studentin
 end
 
 def ask_for_purpose
-  puts "Do you want #{@studentin.vorname} to join a course (please type in A) or to leave a course (please type in B)?".yellow
+  puts "Do you want #{@studentin.vorname} to join a course (please type in A) or to leave a course (please type in B)? You can also delete #{@studentin.vorname}, just type X.".yellow
   purpose = ask
 
   if purpose == "A"
     @purpose = "studentin.join_course"
   elsif purpose == "B"
     @purpose = "studentin.leave_course"
+  elsif purpose == "X"
+    @purpose = "studentin.delete"
   end
 
   if @purpose == "studentin.join_course"
     puts "You chose join as action".yellow
   elsif @purpose == "studentin.leave_course"
     puts "You chose leave as action.".yellow
+  elsif @purpose == "studentin.delete"
   end
 
   unless @purpose
@@ -133,9 +136,17 @@ def create_new_student
   puts "new student,yay?"
 
   new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
-  @students << new_studentin
 
-  @studentin= new_studentin
+  @students.each do |s|
+    instance_studentin = s
+  end
+
+  # unless new_studentin.name == instance_studentin.name
+  #   @students << new_studentin
+  # else
+  #   puts "This Student already exists"
+  # end
+
 end
 
 
@@ -176,7 +187,7 @@ while not @wants_to_exit
     end
 
     if @studentin and @purpose and not @course
-      ask_for_course
+      ask_for_course unless @purpose == "studentin.delete"
     end
 
     if @errors.length > 0
@@ -186,6 +197,9 @@ while not @wants_to_exit
         @studentin.join_course(@course)
       elsif @purpose == "studentin.leave_course"
         @studentin.leave_course(@course)
+      elsif @purpose == "studentin.delete"
+        @students.delete(@studentin)
+        puts "You just deleted #{@studentin}."
       end
       @studentin = nil
       @purpose = nil
