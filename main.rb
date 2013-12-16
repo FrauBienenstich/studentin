@@ -131,15 +131,15 @@ def create_new_student
   puts "Please give me the student's Matrikelnummer."
   new_students_matrikelnummer = ask
 
-  new_id = @students.count + 1
-
-  puts "new student,yay?"
-
-  new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
-
   @students.each do |s|
     @instance_studentin = s
   end
+
+  new_id = find_unique_id(@students.count)
+
+  new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
+
+  puts new_studentin.inspect
 
   unless new_studentin.name == @instance_studentin.name
     @students << new_studentin
@@ -147,12 +147,24 @@ def create_new_student
     puts "This student already exists"
   end
 
-  # unless new_studentin.name == instance_studentin.name
-  #   @students << new_studentin
-  # else
-  #   puts "This Student already exists"
-  # end
+end
 
+def is_id_unique?(id)
+  index_of_student_with_this_id = @students.find_index { |studentin| studentin.id == id.to_s}
+  if index_of_student_with_this_id == nil
+    return true
+  else
+    return false
+  end
+end
+
+def find_unique_id(id)
+  if is_id_unique?(id)
+    return id
+
+  else
+    find_unique_id(id + 1)
+  end
 end
 
 
