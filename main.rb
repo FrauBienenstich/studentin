@@ -68,7 +68,7 @@ def ask_for_studentin
   puts "What Studentin are you looking for?".yellow
   @studentin = ask #--> fragt nach Studentin und speihert sie in @studentin
   @students.each do |s|
-    if s.vorname == @studentin
+    if s.first_name == @studentin
       puts @studentin = s # studentin objekt
     end #@studentin nicht nil, falls es angegebene Studentin gibt!, @studentin is eine Studentininstanz
   end
@@ -82,7 +82,7 @@ def ask_for_studentin
 end
 
 def ask_for_purpose
-  puts "Do you want #{@studentin.vorname} to join a course (please type in A) or to leave a course (please type in B)? You can also delete #{@studentin.vorname}, just type X.".yellow
+  puts "Do you want #{@studentin.first_name} to join a course (please type in A) or to leave a course (please type in B)? You can also delete #{@studentin.first_name}, just type X.".yellow
   purpose = ask
 
   if purpose == "A"
@@ -131,17 +131,18 @@ def create_new_student
   puts "Please give me the student's Matrikelnummer."
   new_students_matrikelnummer = ask
 
+  @student_ids = Array.new
   @students.each do |s|
-    @instance_studentin = s
+    @student_ids << s.id.to_i
   end
 
-  new_id = find_unique_id(@students.count)
+  highest_id = @student_ids.max
+
+  new_id = find_unique_id(highest_id) # höchste vergebene id
 
   new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
 
-  puts new_studentin.inspect
-
-  unless new_studentin.name == @instance_studentin.name
+  if @students.find_index { |studentin| studentin.full_name == new_studentin.full_name} == nil
     @students << new_studentin
   else
     puts "This student already exists"
@@ -189,8 +190,8 @@ while not @wants_to_exit
     format = '%-7s %-15s %-13s %-10s %-15s'
     puts format % ['ID', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
     @students.each_with_index do |member, i|
-      puts format % [ member.id, member.vorname + " " + member.name, member.studiengang, member.matrikelnummer, member.all_course_names]
-      #puts format % [ i+1, member.vorname + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
+      puts format % [ member.id, member.first_name + " " + member.last_name, member.studiengang, member.matrikelnummer, member.all_course_names]
+      #puts format % [ i+1, member.first_name + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
       #member.studiengang.name
     end
 
