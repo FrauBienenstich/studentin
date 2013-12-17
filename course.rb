@@ -20,9 +20,9 @@ class Course
   def gain(studentin)
     puts "calling gain #{studentin}"
     @studentinnen.each do |s|
-      if s.vorname == studentin.vorname
+      if s.first_name == studentin.first_name
 
-        raise Exception.new("#{studentin.vorname} #{studentin.name} nimmt bereits an #{self.title} teil.".red)
+        raise Exception.new("#{studentin.first_name} #{studentin.last_name} nimmt bereits an #{self.title} teil.".red)
 
       end
     end
@@ -31,24 +31,24 @@ class Course
     if @studentinnen.length < 2 
       @studentinnen << studentin
       puts
-      puts "#{studentin.name}, #{studentin.vorname} belegt jetzt #{self.title}".yellow
+      puts "#{studentin.last_name}, #{studentin.first_name} belegt jetzt #{self.title}".yellow
       puts
     else
 
-      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.name}.".red)
+      raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.last_name}.".red)
 
     end
 
   end
 
   def lose(studentin)
-    puts "now losing #{studentin.vorname} #{@studentinnen.length}".yellow
+    puts "now losing #{studentin.first_name} #{@studentinnen.length}".yellow
 
     if @studentinnen.include?(studentin)
 
       @studentinnen.delete(studentin)
 
-      puts "#{studentin.vorname} #{studentin.name} hat den Kurs #{self.title} verlassen.".yellow
+      puts "#{studentin.first_name} #{studentin.last_name} hat den Kurs #{self.title} verlassen.".yellow
     else
       puts "You can't leave a course that you are not participating in! You are currently in the following courses: #{studentin.courses}".red
     end

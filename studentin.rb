@@ -5,20 +5,25 @@ require './course.rb'
 
 class Studentin
   
-  attr_reader :courses, :name, :vorname, :matrikelnummer, :id
+  attr_reader :courses, :last_name, :first_name, :matrikelnummer, :id
   attr_accessor :studiengang
 
-  def initialize(id, name, vorname, fach, matrikelnummer)
+  def initialize(id, last_name, first_name, fach, matrikelnummer)
     @id = id
-    @name = name
-    @vorname = vorname
+    @last_name = last_name
+    @first_name = first_name
     @studiengang = fach
     @matrikelnummer = matrikelnummer
     @courses ||= []
+    #@full_name = @first_name + @last_name
+  end
+
+  def full_name
+    "#{@first_name} #{@last_name}"
   end
  
   def to_s
-    "'ID: #{@id}, Name: #{@name}, Vorname: #{@vorname}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}'"
+    "'ID: #{@id}, Last Name: #{@last_name}, first_name: #{@first_name}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}'"
   end
 
   # def new_studentin
@@ -31,7 +36,7 @@ class Studentin
  
   def wechseln!(studiengang)
     @studiengang = studiengang
-    puts "#{self.vorname} #{self.name} hat in den Studiengang #{self.studiengang} gewechselt."
+    puts "#{self.first_name} #{self.last_name} hat in den Studiengang #{self.studiengang} gewechselt."
   end
 
   def join_course(course)
@@ -75,7 +80,7 @@ class Studentin
     if @courses.empty?
       puts "The student is currently not taking part in any courses."
     else
-      puts "#{self.name} takes part in the following course: #{self.all_courses}."
+      puts "#{self.last_name} takes part in the following course: #{self.all_courses}."
     end
   end
 
@@ -102,7 +107,7 @@ class Studentin
     list.each do |studentin|
       course = studentin.courses.to_s
       formatted_course = course.delete!(",")
-      database.puts( "#{studentin.id}" + "," + "#{studentin.name}" + "," + "#{studentin.vorname}" + "," + "#{studentin.studiengang}" + "," + "#{studentin.matrikelnummer.to_s}" )#+ "," + formatted_course )
+      database.puts( "#{studentin.id}" + "," + "#{studentin.last_name}" + "," + "#{studentin.first_name}" + "," + "#{studentin.studiengang}" + "," + "#{studentin.matrikelnummer.to_s}" )#+ "," + formatted_course )
     end
     database.close
   end
