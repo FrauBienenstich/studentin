@@ -1,12 +1,48 @@
 # encoding: UTF-8
 require './studiengang.rb'
+require './persistable.rb'
 require './course.rb'
+require 'mysql'
 
-
-class Studentin
-  
+class Studentin  
   attr_reader :courses, :last_name, :first_name, :matrikelnummer, :id
   attr_accessor :studiengang
+
+  include Persistable
+
+
+  def get_values_to_save
+    [@id, @last_name, @first_name, @studiengang, @matrikelnummer]
+  end
+
+  # def sql_queries#??
+  #   begin
+  #     con = Mysql.new 'localhost', 'root', ''
+
+  #     all_dbs = con.list_dbs
+  #     all_dbs.each do |db|
+  #       puts db
+  #     end
+  #     puts "-----"
+
+  #     con.query("use studierendenverwaltung;")
+  #     result = con.query("show tables;")
+  #     puts "#{result.num_rows} tables in the db."
+  #     result.num_rows.times do
+  #       puts result.fetch_row.join("\s")
+  #     end
+
+  #     con.query("")
+  #       #Inhalt aus Textfile!?)
+        
+  #   rescue Mysql::Error => e
+  #     puts e.errno
+  #     puts e.error
+
+  #   ensure
+  #     con.close if con
+  #   end
+  # end
 
   def initialize(id, last_name, first_name, fach, matrikelnummer)
     @id = id
@@ -14,7 +50,7 @@ class Studentin
     @first_name = first_name
     @studiengang = fach
     @matrikelnummer = matrikelnummer
-    @courses ||= []
+    @courses = []
     #@full_name = @first_name + @last_name
   end
 
@@ -92,24 +128,38 @@ class Studentin
     end
   end
 
-  def self.read
-    list = []
-    database = File.open("database.txt", "r")
-    database.each do |line|
-      fields = line.chomp.split(",")
-      list << Studentin.new(*fields)
-    end
-    list
-  end
+  # def self.new_from_values(values)
+  #   Studentin.new do |s|
+  #     s.id = values[0]
+  #     s.last_name = values[1]
+  #     ...
+  #   end
+  # end
 
-  def self.write(list)
-    database = File.open("database.txt", "w")
-    list.each do |studentin|
-      course = studentin.courses.to_s
-      formatted_course = course.delete!(",")
-      database.puts( "#{studentin.id}" + "," + "#{studentin.last_name}" + "," + "#{studentin.first_name}" + "," + "#{studentin.studiengang}" + "," + "#{studentin.matrikelnummer.to_s}" )#+ "," + formatted_course )
-    end
-    database.close
-  end
+  # def get_database_name
+  #   "studentin"
+  # end
+
+  # def self.read
+  #   list = []
+  #   database = File.open("#{get_database_name}.txt", "r")
+  #   database.each do |line|
+  #     fields = line.chomp.split(",")
+  #     list << Studentin.new_from_values(fields)
+  #   end
+  #   database.close
+  #   list
+  # end
+
+  # def self.write(list)
+  #   database = File.open("#{get_database_name}.txt", "w")
+  #   list.each do |studentin|
+  #     #course = studentin.courses.to_s
+  #     #formatted_course = course.delete!(",")
+  #     #database.puts( "#{studentin.id}" + "," + "#{studentin.last_name}" + "," + "#{studentin.first_name}" + "," + "#{studentin.studiengang}" + "," + "#{studentin.matrikelnummer.to_s}" )#+ "," + formatted_course )
+  #     database.puts(studentin.get_values_to_save.join(", "))
+  #   end
+  #   database.close
+  # end
 
 end

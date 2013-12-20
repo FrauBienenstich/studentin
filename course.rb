@@ -5,6 +5,13 @@ class Course
   attr_reader :studentinnen
   attr_reader :title
 
+  include Persistable
+
+
+  def get_values_to_save
+    [@title, @description, @studiengang]
+  end
+
   def initialize(title, description, studiengang)
     @title = title
     @description = description
