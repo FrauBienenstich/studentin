@@ -68,7 +68,7 @@ subjects << germanistik = Studiengang.new("Germanistik", "FB8")
 
 @students = Studentin.read || []
 
-# if students doeas not exist, create bogus data
+# if students does not exist, create bogus data
 if @students.length == 0
   @students << susi = Studentin.new("1", "Müller", "Susanne", anglistik, 123456 )
   @students << lulu = Studentin.new("2", "Knüller", "Lulu", anglistik, 9482892 )
@@ -129,7 +129,7 @@ def ask_for_studentin
   #@studentin.print_courses
 end
 
-def ask_for_purpose
+def ask_for_purpose(studentin)
   puts "Do you want #{@studentin.first_name} to join a course (please type in A) or to leave a course (please type in B)? You can also delete #{@studentin.first_name}, just type X.".yellow
   purpose = ask
 
@@ -250,7 +250,7 @@ while not @wants_to_exit
     end
 
     if @studentin and not @purpose
-      ask_for_purpose
+      ask_for_purpose(@studentin)
     end
 
     if @studentin and @purpose and not @course
