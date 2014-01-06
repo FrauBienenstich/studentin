@@ -3,6 +3,7 @@ require './studentin.rb'
 require './course.rb'
 require './studiengang.rb'
 require './my_string.rb'
+require './university_management.rb'
 require 'mysql'
 
 begin
@@ -98,137 +99,7 @@ end
   puts s
 end
 
-
-@studentin = nil
-@purpose = nil
-@course = nil
 @wants_to_exit = false
-
-def ask
-  input = gets.chomp
-  if input.downcase == "exit"
-    raise "ApplicationWantsToExit"
-  end
-  return input
-end
-
-def ask_for_studentin
-  puts "What Studentin are you looking for?".yellow
-  @studentin = ask #--> fragt nach Studentin und speihert sie in @studentin
-  @students.each do |s|
-    if s.first_name == @studentin
-      puts @studentin = s # studentin objekt
-    end #@studentin nicht nil, falls es angegebene Studentin gibt!, @studentin is eine Studentininstanz
-  end
-
-  if @studentin 
-    puts "I know her!".yellow
-  else
-    @errors << "Did not find student".red
-  end
-  #@studentin.print_courses
-end
-
-def ask_for_purpose(studentin)
-  puts "Do you want #{@studentin.first_name} to join a course (please type in A) or to leave a course (please type in B)? You can also delete #{@studentin.first_name}, just type X.".yellow
-  purpose = ask
-
-  if purpose == "A"
-    @purpose = "studentin.join_course"
-  elsif purpose == "B"
-    @purpose = "studentin.leave_course"
-  elsif purpose == "X"
-    @purpose = "studentin.delete"
-  end
-
-  if @purpose == "studentin.join_course"
-    puts "You chose join as action".yellow
-  elsif @purpose == "studentin.leave_course"
-    puts "You chose leave as action.".yellow
-  elsif @purpose == "studentin.delete"
-  end
-
-  unless @purpose
-    @errors << "Don't know what to do!".red
-  end     
-end
-
-def ask_for_course
-  puts "Please enter the title of the course.".yellow
-  course_title = ask
-
-  @courses.each do |c|
-    @course = c if course_title == c.title
-  end
-
-  unless @course
-    @errors << "That's not a course I know!".red
-  end     
-end
-
-def create_new_student
-  puts "What's the first name?"
-  new_first_name = ask
-
-  puts "What's the last name?"
-  new_last_name = ask
-
-  puts "What's the student's subject."
-  new_students_subject = ask
-
-  puts "Please give me the student's Matrikelnummer."
-  new_students_matrikelnummer = ask
-
-  @student_ids = Array.new
-  @students.each do |s|
-    @student_ids << s.id.to_i
-  end
-
-  highest_id = @student_ids.max
-
-  new_id = find_unique_id(highest_id) # höchste vergebene id
-
-  new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
-
-  if @students.find_index { |studentin| studentin.full_name == new_studentin.full_name} == nil
-    @students << new_studentin
-  else
-    puts "This student already exists"
-  end
-
-end
-
-def is_id_unique?(id)
-  index_of_student_with_this_id = @students.find_index { |studentin| studentin.id == id.to_s}
-  if index_of_student_with_this_id == nil
-    return true
-  else
-    return false
-  end
-end
-
-def find_unique_id(id)
-  if is_id_unique?(id)
-    return id
-
-  else
-    find_unique_id(id + 1)
-  end
-end
-
-
-def ask_for_new_student
-  puts "Do you want to add a new student to the list? Please answer with 'Y' or 'N'".yellow
-  answer = ask
-
-  if answer == "Y"
-    create_new_student
-  end
-end
-
-def display_errors
-  puts @errors.join
-end
 
 while not @wants_to_exit
   begin
@@ -243,39 +114,41 @@ while not @wants_to_exit
       #member.studiengang.name
     end
 
-    ask_for_new_student
+    studentin = UniversityManagement.ask_for_new_student(@students)
+    @students << studentin if studentin
 
-    unless @studentin
-      ask_for_studentin
+    unless studentin
+      studentin = UniversityManagement.ask_for_studentin
     end
 
-    if @studentin and not @purpose
-      ask_for_purpose(@studentin)
+    if studentin and not purpose
+      purpose = UniversityManagement.ask_for_purpose(studentin)
     end
 
-    if @studentin and @purpose and not @course
-      ask_for_course unless @purpose == "studentin.delete"
+    if studentin and purpose and not course
+      UniversityManagement.ask_for_course unless purpose == "studentin.delete"
     end
 
     if @errors.length > 0
       display_errors # wann aufgerufen?
     else
-      if @purpose == "studentin.join_course"
-        @studentin.join_course(@course)
-      elsif @purpose == "studentin.leave_course"
-        @studentin.leave_course(@course)
-      elsif @purpose == "studentin.delete"
-        @students.delete(@studentin)
-        puts "You just deleted #{@studentin}."
+      if purpose == "studentin.join_course"
+        studentin.join_course(course)
+      elsif purpose == "studentin.leave_course"
+        studentin.leave_course(course)
+      elsif purpose == "studentin.delete"
+        @students.delete(studentin)
+        puts "You just deleted #{studentin}."
       end
-      @studentin = nil
-      @purpose = nil
-      @course = nil
+      studentin = nil
+      purpose = nil
+      course = nil
     end
 
     # sleep 5
     # system('clear')
-  rescue
+  rescue Exception => e
+    puts e.to_s
     @wants_to_exit = true
   end
 end
