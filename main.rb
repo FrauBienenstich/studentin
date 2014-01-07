@@ -117,30 +117,31 @@ while not @wants_to_exit
     if @errors.length > 0
       display_errors # wann aufgerufen?
     else
-      case (defined?(studentin)).nil?
-      when purpose == "A"
+
+
+      case purpose
+      when "A"
         studentin = UniversityManagement.create_new_student(@students)
-      when purpose == "B"
+      when "B"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
           course = UniversityManagement.ask_for_course(@courses)
           studentin.join_course(course)
         end
-      when purpose == "C"
+      when "C"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
           course = UniversityManagement.ask_for_course(@courses)
           studentin.leave_course(course)
         end
-      when purpose == "X"
-        studentin = UniversityManagement.select_studentin(@students)
-        unless studentin == nil
-          course = UniversityManagement.ask_for_course(@courses)
-          @students.delete(studentin)
-          puts "You just deleted #{studentin}."
+        when purpose == "X"
+          studentin = UniversityManagement.select_studentin(@students)
+          unless studentin == nil
+            course = UniversityManagement.ask_for_course(@courses)
+            @students.delete(studentin)
+            puts "You just deleted #{studentin}."
+          end
         end
-      end
-      # could probably look nicer, dryer
 
     @students << studentin if purpose == "A"
 
