@@ -10,26 +10,25 @@ class UniversityManagement
 
   def self.select_studentin(students)
     puts "What Studentin are you looking for?".yellow
-    studentin = self.ask #--> fragt nach Studentin und speihert sie in @studentin
-    puts "Choosing #{studentin}."
-    puts students
+    vorname = self.ask
+    studentin = nil
     students.each do |s|
-      if s.first_name == studentin # check
+      if s.first_name == vorname
         studentin = s
-        puts "Still choosing #{studentin}."
         puts "I know her!".yellow
-        return studentin
-      else
-        #@errors << "Did not find student".red #what about @errors?
-      end
+      end 
     end
+
+    unless studentin
+      puts "NO STUDENT FOUND"
+    end
+
+    return studentin
   end
 
   def self.ask_for_purpose
-    puts "Is the purpose method called?"
     puts "Do you want to create a new student (please type A)? Or do you you want join a new course (type B), leave a course (type C), or delete a student (type X)?".yellow
     purpose = self.ask
-    puts purpose
 
     if purpose == "A"
       puts "You want to create a new student!".yellow
@@ -55,7 +54,6 @@ class UniversityManagement
     courses.each do |c|
       course = c if course_title == c.title
     end
-    puts course
 
     unless course
       @errors << "That's not a course I know!".red
@@ -76,34 +74,20 @@ class UniversityManagement
     puts "Please give me the student's Matrikelnummer."
     new_students_matrikelnummer = self.ask
 
-    puts "These are the preexisting students:"
-    puts preexisting_students
-
     student_ids = Array.new
     preexisting_students.each do |s|
       student_ids << s.id.to_i
     end
 
-    puts "My student ids:"
-    puts student_ids
-
     highest_id = student_ids.max
 
-    puts "The highest ID:"
-    puts highest_id
 
     new_id = self.find_unique_id(highest_id, preexisting_students) # höchste vergebene id
 
-    puts "Any new IDs:"
-    puts new_id
 
     new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
-    puts "The new studentin!"
-    puts new_studentin
 
     if preexisting_students.find_index { |studentin| studentin.full_name == new_studentin.full_name} == nil
-      puts "Adding new student to students"
-      #######
       return new_studentin# returns the new_studentin
     else
       return nil
@@ -112,29 +96,19 @@ class UniversityManagement
   end 
 
   def self.is_id_unique?(id, students)
-    puts "is_id_unique gets also called!"
     index_of_student_with_this_id = students.find_index { |studentin| studentin.id == id.to_s}
-    puts "find_index method works?"
     if index_of_student_with_this_id == nil
-      puts "index_of_student_with_this_id is nil"
       return true
     else
-      puts "index_of_student_with_this_id is not nil"
       return false
-      puts "it returns false"
     end
-    puts "I dont understand"
   end
 
   def self.find_unique_id(id, students)
-    puts "find_unique_id gets called!"
     if self.is_id_unique?(id, students)
       return id
-      puts "the id is unique! OLE!"
     else
-      puts "the id is not unique"
       self.find_unique_id(id + 1, students)
-      puts "which is why its increased by one"
     end
   end
 
@@ -143,7 +117,6 @@ class UniversityManagement
     answer = self.ask
 
     if answer == "Y"
-      puts self.create_new_student(students)
       return self.create_new_student(students)
     end
   end

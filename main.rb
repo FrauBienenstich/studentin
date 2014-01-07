@@ -95,9 +95,9 @@ if @students.length == 0
 end
 
 
-@students.each do |s|
-  puts s
-end
+# @students.each do |s|
+#   puts s
+# end
 
 @wants_to_exit = false
 
@@ -110,8 +110,6 @@ while not @wants_to_exit
     puts format % ['ID', 'Name', 'Studiengang', 'Matrikelnr.', 'Courses']
     @students.each_with_index do |member, i|
       puts format % [ member.id, member.first_name + " " + member.last_name, member.studiengang, member.matrikelnummer, member.all_course_names]
-      #puts format % [ i+1, member.first_name + " " + member.name, member.studiengang.name, member.matrikelnummer, member.all_course_names]
-      #member.studiengang.name
     end
 
     purpose = UniversityManagement.ask_for_purpose
@@ -122,23 +120,34 @@ while not @wants_to_exit
       if purpose == "A"
         studentin = UniversityManagement.create_new_student(@students)
       elsif purpose == "B"
-        puts "I want Hansi to join"
         studentin = UniversityManagement.select_studentin(@students)
-        course = UniversityManagement.ask_for_course(@courses)
-        puts studentin
-        studentin.join_course(course)
+        unless studentin == nil
+          course = UniversityManagement.ask_for_course(@courses)
+          studentin.join_course(course)
+        else
+          puts "STUDENT DOES NOT EXIST"
+        end
       elsif purpose == "C"
         studentin = UniversityManagement.select_studentin(@students)
-        course = UniversityManagement.ask_for_course(@courses)
-        studentin.leave_course(course)
+        unless studentin == nil
+          course = UniversityManagement.ask_for_course(@courses)
+          studentin.leave_course(course)
+        else
+          puts "STUDENT DOES NOT EXIST"
+        end
       elsif purpose == "X"
         studentin = UniversityManagement.select_studentin(@students)
-        @students.delete(studentin)
-        puts @students
-        puts "You just deleted #{studentin}."
+        unless studentin == nil
+          course = UniversityManagement.ask_for_course(@courses)
+          @students.delete(studentin)
+          puts "You just deleted #{studentin}."
+        else 
+          puts "STUDENT DOES NOT EXIST"
+        end
       end
+      # could probably look nicer, dryer
 
-    @students << studentin unless purpose == "X"
+    @students << studentin if purpose == "A"
 
       studentin = nil
       purpose = nil
