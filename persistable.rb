@@ -36,7 +36,7 @@ module Persistable
     end
 
     def read
-      puts "READ"
+      puts "READ".pink
       list = []
       file_name = "#{database_name}.txt"
       return list unless File.exists? file_name
@@ -52,7 +52,7 @@ module Persistable
     end
 
     def write(list)
-      puts "WRITE #{list.inspect}"
+      puts "WRITE".pink
       database = File.open("#{database_name}.txt", "w")
       puts "---"
   
