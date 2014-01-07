@@ -117,32 +117,27 @@ while not @wants_to_exit
     if @errors.length > 0
       display_errors # wann aufgerufen?
     else
-      if purpose == "A"
+      case (defined?(studentin)).nil?
+      when purpose == "A"
         studentin = UniversityManagement.create_new_student(@students)
-      elsif purpose == "B"
+      when purpose == "B"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
           course = UniversityManagement.ask_for_course(@courses)
           studentin.join_course(course)
-        else
-          puts "STUDENT DOES NOT EXIST"
         end
-      elsif purpose == "C"
+      when purpose == "C"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
           course = UniversityManagement.ask_for_course(@courses)
           studentin.leave_course(course)
-        else
-          puts "STUDENT DOES NOT EXIST"
         end
-      elsif purpose == "X"
+      when purpose == "X"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
           course = UniversityManagement.ask_for_course(@courses)
           @students.delete(studentin)
           puts "You just deleted #{studentin}."
-        else 
-          puts "STUDENT DOES NOT EXIST"
         end
       end
       # could probably look nicer, dryer
