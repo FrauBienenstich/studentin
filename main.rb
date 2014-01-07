@@ -114,32 +114,32 @@ while not @wants_to_exit
       #member.studiengang.name
     end
 
-    studentin = UniversityManagement.ask_for_new_student(@students)
-    @students << studentin if studentin
-
-    unless studentin
-      studentin = UniversityManagement.ask_for_studentin
-    end
-
-    if studentin and not purpose
-      purpose = UniversityManagement.ask_for_purpose(studentin)
-    end
-
-    if studentin and purpose and not course
-      UniversityManagement.ask_for_course unless purpose == "studentin.delete"
-    end
+    purpose = UniversityManagement.ask_for_purpose
 
     if @errors.length > 0
       display_errors # wann aufgerufen?
     else
-      if purpose == "studentin.join_course"
+      if purpose == "A"
+        studentin = UniversityManagement.create_new_student(@students)
+      elsif purpose == "B"
+        puts "I want Hansi to join"
+        studentin = UniversityManagement.select_studentin(@students)
+        course = UniversityManagement.ask_for_course(@courses)
+        puts studentin
         studentin.join_course(course)
-      elsif purpose == "studentin.leave_course"
+      elsif purpose == "C"
+        studentin = UniversityManagement.select_studentin(@students)
+        course = UniversityManagement.ask_for_course(@courses)
         studentin.leave_course(course)
-      elsif purpose == "studentin.delete"
+      elsif purpose == "X"
+        studentin = UniversityManagement.select_studentin(@students)
         @students.delete(studentin)
+        puts @students
         puts "You just deleted #{studentin}."
       end
+
+    @students << studentin unless purpose == "X"
+
       studentin = nil
       purpose = nil
       course = nil

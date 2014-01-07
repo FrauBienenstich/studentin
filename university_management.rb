@@ -8,41 +8,37 @@ class UniversityManagement
     return input
   end
 
-  def self.ask_for_studentin
+  def self.select_studentin(students)
     puts "What Studentin are you looking for?".yellow
     studentin = self.ask #--> fragt nach Studentin und speihert sie in @studentin
     puts "Choosing #{studentin}."
-    @students.each do |s| # kann bleiben??
-      if s.first_name == studentin
-        puts studentin = s
+    puts students
+    students.each do |s|
+      if s.first_name == studentin # check
+        studentin = s
         puts "Still choosing #{studentin}."
-      end #@studentin nicht nil, falls es angegebene Studentin gibt!, @studentin is eine Studentininstanz
-    
-      if studentin 
         puts "I know her!".yellow
+        return studentin
       else
-        @errors << "Did not find student".red
+        #@errors << "Did not find student".red #what about @errors?
       end
     end
   end
 
-  def self.ask_for_purpose(person)
-    puts "Do you want #{person.first_name} to join a course (please type in A) or to leave a course (please type in B)? You can also delete #{person.first_name}, just type X.".yellow
+  def self.ask_for_purpose
+    puts "Is the purpose method called?"
+    puts "Do you want to create a new student (please type A)? Or do you you want join a new course (type B), leave a course (type C), or delete a student (type X)?".yellow
     purpose = self.ask
+    puts purpose
 
     if purpose == "A"
-      purpose = "studentin.join_course"
+      puts "You want to create a new student!".yellow
     elsif purpose == "B"
-      purpose = "studentin.leave_course"
-    elsif purpose == "X"
-      purpose = "studentin.delete"
-    end
-
-    if purpose == "studentin.join_course"
       puts "You chose join as action".yellow
-    elsif purpose == "studentin.leave_course"
-      puts "You chose leave as action.".yellow
-    elsif purpose == "studentin.delete"
+    elsif purpose == "C"
+      puts "You want to leave a course".yellow
+    elsif purpose == "X"
+      puts "You want to delete a student".yellow
     end
 
     unless purpose
@@ -51,17 +47,20 @@ class UniversityManagement
     purpose
   end
 
-  def self.ask_for_course
+  def self.ask_for_course(courses)
     puts "Please enter the title of the course.".yellow
     course_title = self.ask
 
-    @courses.each do |c|
+    course = nil # da lokale Variable: muss ausserhalb des Blocks bekanntgemacht werden
+    courses.each do |c|
       course = c if course_title == c.title
     end
+    puts course
 
     unless course
       @errors << "That's not a course I know!".red
     end
+    return course
   end
 
   def self.create_new_student(preexisting_students)
@@ -104,7 +103,7 @@ class UniversityManagement
 
     if preexisting_students.find_index { |studentin| studentin.full_name == new_studentin.full_name} == nil
       puts "Adding new student to students"
-      ###############################################################--> hier stimmt was nicht!
+      #######
       return new_studentin# returns the new_studentin
     else
       return nil
@@ -144,6 +143,7 @@ class UniversityManagement
     answer = self.ask
 
     if answer == "Y"
+      puts self.create_new_student(students)
       return self.create_new_student(students)
     end
   end
