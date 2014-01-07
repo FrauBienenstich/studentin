@@ -20,7 +20,7 @@ class UniversityManagement
     end
 
     unless studentin
-      puts "NO STUDENT FOUND"
+      puts "NO STUDENT FOUND".red
     end
 
     return studentin
