@@ -1,11 +1,12 @@
 # encoding: UTF-8
 require './studentin.rb'
+require './db_persistable.rb'
 
 class Course
   attr_reader :studentinnen
   attr_reader :title
 
-  include Persistable
+  include DbPersistable
 
 
   def get_values_to_save

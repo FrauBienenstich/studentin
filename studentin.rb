@@ -1,14 +1,13 @@
 # encoding: UTF-8
 require './studiengang.rb'
-require './persistable.rb'
+require './db_persistable.rb'
 require './course.rb'
-require 'mysql'
 
 class Studentin  
   attr_reader :courses, :last_name, :first_name, :matrikelnummer, :id
   attr_accessor :studiengang
 
-  include Persistable
+  include DbPersistable
 
 
   def get_values_to_save
@@ -127,39 +126,5 @@ class Studentin
       puts "need moar!"
     end
   end
-
-  # def self.new_from_values(values)
-  #   Studentin.new do |s|
-  #     s.id = values[0]
-  #     s.last_name = values[1]
-  #     ...
-  #   end
-  # end
-
-  # def get_database_name
-  #   "studentin"
-  # end
-
-  # def self.read
-  #   list = []
-  #   database = File.open("#{get_database_name}.txt", "r")
-  #   database.each do |line|
-  #     fields = line.chomp.split(",")
-  #     list << Studentin.new_from_values(fields)
-  #   end
-  #   database.close
-  #   list
-  # end
-
-  # def self.write(list)
-  #   database = File.open("#{get_database_name}.txt", "w")
-  #   list.each do |studentin|
-  #     #course = studentin.courses.to_s
-  #     #formatted_course = course.delete!(",")
-  #     #database.puts( "#{studentin.id}" + "," + "#{studentin.last_name}" + "," + "#{studentin.first_name}" + "," + "#{studentin.studiengang}" + "," + "#{studentin.matrikelnummer.to_s}" )#+ "," + formatted_course )
-  #     database.puts(studentin.get_values_to_save.join(", "))
-  #   end
-  #   database.close
-  # end
 
 end
