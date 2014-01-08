@@ -11,7 +11,7 @@ class Studentin
 
 
   def get_values_to_save
-    [@id, @last_name, @first_name, @studiengang, @matrikelnummer]
+    [@id, @first_name, @last_name, @studiengang, @matrikelnummer]
   end
 
   # def sql_queries#??
@@ -43,10 +43,10 @@ class Studentin
   #   end
   # end
 
-  def initialize(id, last_name, first_name, fach, matrikelnummer)
+  def initialize(id, first_name, last_name, fach, matrikelnummer)
     @id = id
-    @last_name = last_name
     @first_name = first_name
+    @last_name = last_name
     @studiengang = fach
     @matrikelnummer = matrikelnummer
     @courses = []
