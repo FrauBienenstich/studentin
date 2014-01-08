@@ -134,10 +134,9 @@ while not @wants_to_exit
           course = UniversityManagement.ask_for_course(@courses)
           studentin.leave_course(course)
         end
-        when purpose == "X"
+        when "X"
           studentin = UniversityManagement.select_studentin(@students)
           unless studentin == nil
-            course = UniversityManagement.ask_for_course(@courses)
             @students.delete(studentin)
             puts "You just deleted #{studentin}."
           end
