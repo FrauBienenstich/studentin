@@ -89,8 +89,10 @@ class UniversityManagement
 
     new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
 
+    puts "You successfully created Studentin #{new_first_name} #{new_last_name}!".pink
+    
     if preexisting_students.find_index { |studentin| studentin.full_name == new_studentin.full_name} == nil
-      return new_studentin# returns the new_studentin
+      return new_studentin
     else
       return nil
       puts "This student already exists"
