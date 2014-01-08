@@ -56,9 +56,11 @@ class UniversityManagement
     end
 
     unless course
-      @errors << "That's not a course I know!".red
+      puts "I don't know this course!"
+      #@errors << "That's not a course I know!".red
     end
     return course
+
   end
 
   def self.create_new_student(preexisting_students)
