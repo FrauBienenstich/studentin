@@ -89,6 +89,10 @@ class UniversityManagement
 
     new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
 
+    puts "Errmerrgerd".pink
+    new_studentin.write
+    puts "a new studentin in ze db?!!!".pink
+
     puts "You successfully created Studentin #{new_first_name} #{new_last_name}!".pink
     
     if preexisting_students.find_index { |studentin| studentin.full_name == new_studentin.full_name} == nil
