@@ -5,14 +5,22 @@ require './studiengang.rb'
 require './my_string.rb'
 require './university_management.rb'
 require './db_persistable.rb'
+require './db_persistable_courses.rb'
 require './seeds.rb'
+require 'mysql'
 
 #@students = Studentin.read || []
 # --> ok to just call read in seeds.rb?
+#@courses = Course.read || []
 
-@students = Studentin.read || [] 
+@students = Studentin.read || [] #--> liest aus db
+
+con = Mysql.new 'localhost', 'root', ''
+con.query("use studierendenverwaltung;")
+con.query("truncate table studentinnen;")
+
 @wants_to_exit = false
-
+@do_not_write = false
 while not @wants_to_exit
   begin
     @errors = []
@@ -56,20 +64,21 @@ while not @wants_to_exit
 
     @students << studentin if purpose == "A"
 
-      studentin = nil
       purpose = nil
       course = nil
     end
 
     # sleep 5
     # system('clear')
+  rescue SystemExit, Interrupt
+    @wants_to_exit = true
+    @do_not_write = true
   rescue Exception => e
     puts e.to_s
     @wants_to_exit = true
   end
 end
-
-Studentin.write(@students)
-
+Studentin.write(@students) unless @do_not_write
+#Course.write(@courses)
 
 
