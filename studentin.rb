@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require './studiengang.rb'
 require './db_persistable.rb'
+#require './db_persistable_courses.rb'
 require './course.rb'
 
 class Studentin  
