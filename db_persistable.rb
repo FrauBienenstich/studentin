@@ -78,22 +78,25 @@ module DbPersistable
       begin
         con = Mysql.new 'localhost', 'root', ''
         database = con.query("use studierendenverwaltung;")
-        #insert list ie @students into studentin. BUT HOW?
         con.query("CREATE TABLE IF NOT EXISTS\
           Studentinnen(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(20), last_name VARCHAR(20), studiengang VARCHAR(20), matrikelnummer INT, courses VARCHAR(20));")  
-        con.query("INSERT INTO studentinnen(first_name, last_name, studiengang, matrikelnummer) VALUES('Ada', 'Lovelace', 'Informatik', '942834234');")
-      
-        #list.each do |student|
 
+        prepared_statement = con.prepare "INSERT INTO studentinnen(first_name, last_name, studiengang, matrikelnummer) VALUES(?, ?, ?, ?);"
 
-
-
+        list.each do |student|
+          first_name = student.first_name
+          last_name = student.last_name
+          studiengang = student.studiengang
+          matrikelnummer = student. matrikelnummer
+          prepared_statement.execute first_name, last_name, studiengang, matrikelnummer
+        end
 
       rescue Mysql::Error => e
         puts e.errno
         puts e.error
       ensure
         con.close if con
+        prepared_statement.close if prepared_statement
       end
     end
 
