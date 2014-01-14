@@ -60,6 +60,7 @@ while not @wants_to_exit
           studentin = UniversityManagement.select_studentin(@students)
           unless studentin == nil
             @students.delete(studentin)
+            studentin.delete
             puts "You just deleted #{studentin}."
           end
         end

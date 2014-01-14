@@ -18,6 +18,9 @@ module DbPersistable
     self.class.write([self]) # class method is called on instance
   end
 
+  def delete
+    self.class.delete(self)
+  end
 
 
   def persisted?
@@ -90,6 +93,13 @@ module DbPersistable
       con.query("CREATE TABLE IF NOT EXISTS\
           studentinnen(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(20), last_name VARCHAR(20), studiengang VARCHAR(20), matrikelnummer INT, courses VARCHAR(20));")  
       con
+    end
+
+    def delete(student)
+      con = establish_db_connection("studierendenverwaltung")
+      delete_statement = con.prepare("DELETE FROM studentinnen WHERE id = ?")
+      delete_statement.execute student.id
+
     end
 
 
