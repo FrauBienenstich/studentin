@@ -15,8 +15,10 @@ module DbPersistable
 
   def write
     puts "THE INSTANCE METHOD WRITE IS CALLED".pink
-    Studentin.write([self]) # class method is called on instance
+    self.class.write([self]) # class method is called on instance
   end
+
+
 
   def persisted?
     id != nil
@@ -45,33 +47,30 @@ module DbPersistable
       nil
     end
 
+    def clear_database
+      con = Studentin.establish_db_connection("studierendenverwaltung_test")
+      con.query("TRUNCATE table studentinnen;")
+    end
+
     def read(database_name="studierendenverwaltung")
       puts "THE READ METHOD IS CALLED!!!!".pink
       
       begin
         con = establish_db_connection(database_name)
         result = con.query("select id, first_name, last_name, studiengang, matrikelnummer from studentinnen;")
-        puts result
-
         n_rows = result.num_rows
-        puts "NUMBERS"
-        puts n_rows
 
         entries = []
+
         n_rows.times do
           entries << result.fetch_row
         end
         puts entries.first.inspect
 
         students = []
-        entries.each do |entry|
-          entry
-          puts "THIS IS THE ENTRY"
-          puts entry
-          #spaltenamen last_name => entry[0]
-          
-          new_studentin = class_to_create.new(*database_row)#id rausfischen aber merken, die übrigen felder in new stecken
-          new_studentin.id = gemerkteID
+        entries.each do |database_row|
+          database_row
+          new_studentin = class_to_create.new(*database_row)
           students << new_studentin
         end
 
@@ -107,21 +106,14 @@ module DbPersistable
           last_name = student.last_name
           studiengang = student.studiengang
           matrikelnummer = student.matrikelnummer
-          puts "Here is a student #{matrikelnummer}"
           if student.persisted?
-            puts "the student IS persisted"
+            puts "UPDATING"
             update_statement.execute student.first_name, student.id
           else
-            puts "student is not persisted"
+            puts "INSERTING"
             insert_statement.execute first_name, last_name, studiengang, matrikelnummer
             student.id = con.insert_id # I don't quite get why I need this!
-            puts "con.insert_id value"
-            puts con.insert_id
-            puts "STUDENT ID:"
-            puts student.id # returns different values than insert_id
           end
-          puts "con.insert_id value!"
-          puts con.insert_id # gibt immer 0 zurück!!!, sollte den letzten AUTO_INCREMENT value der Verbindung anzeigen...auto_increment nicht ausgeführt?
         end
 
       rescue Mysql::Error => e

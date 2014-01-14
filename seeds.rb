@@ -21,13 +21,13 @@ subjects << germanistik = Studiengang.new("Germanistik", "FB8")
 # if students does not exist, create bogus data
 @students = []
 if @students.length == 0
-  @students << susi = Studentin.new("1", "Susanne",  "Müller", "Sport", 123456 )
-  @students << lulu = Studentin.new("2", "Lulu", "Knüller", "Sport", 9482892 )
-  @students << mimi = Studentin.new("3", "Mimi", "Schnüller", "Sport", 123116 )
-  @students << lili = Studentin.new("4", "Lili", "Füller", "Sport", 1234564 )
-  @students << anna = Studentin.new("5", "Anna", "Büller", "Sport", 1243456 )
-  @students << emma = Studentin.new("6", "Emma", "Züller", "Sport", 1123456 )
-  @students << helga = Studentin.new("7", "Helga", "Rüller", "Sport", 1123456 )
+  @students << susi = Studentin.new("Susanne",  "Müller", "Sport", 123456 )
+  @students << lulu = Studentin.new("Lulu", "Knüller", "Sport", 9482892 )
+  @students << mimi = Studentin.new("Mimi", "Schnüller", "Sport", 123116 )
+  @students << lili = Studentin.new("Lili", "Füller", "Sport", 1234564 )
+  @students << anna = Studentin.new("Anna", "Büller", "Sport", 1243456 )
+  @students << emma = Studentin.new("Emma", "Züller", "Sport", 1123456 )
+  @students << helga = Studentin.new("Helga", "Rüller", "Sport", 1123456 )
   
   susi.join_course(kurs1)
   lulu.join_course(kurs1)

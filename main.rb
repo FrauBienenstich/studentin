@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require './studentin.rb'
 require './course.rb'
 require './studiengang.rb'
@@ -15,13 +16,13 @@ require 'mysql'
 
 @students = Studentin.read || [] #--> liest aus db
 
-con = Mysql.new 'localhost', 'root', ''
-con.query("use studierendenverwaltung;")
+#con = Mysql.new 'localhost', 'root', ''
+#con.query("use studierendenverwaltung;")
 #con.query("truncate table studentinnen;")
 
 @wants_to_exit = false
 @do_not_write = false
-while not @wants_to_exit
+while not @wants_to_exit 
   begin
     @errors = []
     puts "Here is a list of all the students:".yellow
@@ -34,7 +35,7 @@ while not @wants_to_exit
 
     purpose = UniversityManagement.ask_for_purpose
 
-    if @errors.length > 0
+    if @errors.length > 0 #TODO change order of if and else, always positive first
       display_errors # wann aufgerufen?
     else
 
@@ -42,6 +43,7 @@ while not @wants_to_exit
       case purpose
       when "A"
         studentin = UniversityManagement.create_new_student(@students) # hier passiert schon db eintrag
+        @students << studentin
       when "B"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
@@ -62,7 +64,7 @@ while not @wants_to_exit
           end
         end
 
-      @students << studentin if purpose == "A"
+      
 
       purpose = nil
       course = nil

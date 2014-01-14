@@ -30,6 +30,7 @@ class UniversityManagement
     puts "Do you want to create a new student (please type A)? Or do you you want join a new course (type B), leave a course (type C), or delete a student (type X)?".yellow
     purpose = self.ask
 
+    #TODO only call yellow ONCE
     if purpose == "A"
       puts "You want to create a new student!".yellow
     elsif purpose == "B"
@@ -39,6 +40,8 @@ class UniversityManagement
     elsif purpose == "X"
       puts "You want to delete a student".yellow
     end
+
+
 
     unless purpose
       @errors << "Don't know what to do!".red
@@ -76,7 +79,7 @@ class UniversityManagement
     puts "Please give me the student's Matrikelnummer."
     new_students_matrikelnummer = self.ask
 
-    student_ids = Array.new
+    student_ids = []
     preexisting_students.each do |s|
       student_ids << s.id.to_i
     end
@@ -84,10 +87,10 @@ class UniversityManagement
     highest_id = student_ids.max
 
 
-    new_id = self.find_unique_id(highest_id, preexisting_students) # höchste vergebene id
+    #new_id = highest_id + 1#self.find_unique_id(highest_id, preexisting_students) # höchste vergebene id
 
 
-    new_studentin = Studentin.new(new_id, new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
+    new_studentin = Studentin.new(new_last_name, new_first_name, new_students_subject, new_students_matrikelnummer )
 
     puts "Errmerrgerd".pink
     new_studentin.write
@@ -103,7 +106,7 @@ class UniversityManagement
     end
   end 
 
-  def self.is_id_unique?(id, students)
+  def self.is_id_unique?(id, students)#TODO unique_id?
     index_of_student_with_this_id = students.find_index { |studentin| studentin.id == id.to_s}
     if index_of_student_with_this_id == nil
       return true
