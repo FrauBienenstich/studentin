@@ -17,7 +17,7 @@ require 'mysql'
 
 con = Mysql.new 'localhost', 'root', ''
 con.query("use studierendenverwaltung;")
-con.query("truncate table studentinnen;")
+#con.query("truncate table studentinnen;")
 
 @wants_to_exit = false
 @do_not_write = false
@@ -41,7 +41,7 @@ while not @wants_to_exit
 
       case purpose
       when "A"
-        studentin = UniversityManagement.create_new_student(@students)
+        studentin = UniversityManagement.create_new_student(@students) # hier passiert schon db eintrag
       when "B"
         studentin = UniversityManagement.select_studentin(@students)
         unless studentin == nil
@@ -62,7 +62,7 @@ while not @wants_to_exit
           end
         end
 
-    @students << studentin if purpose == "A"
+      @students << studentin if purpose == "A"
 
       purpose = nil
       course = nil
@@ -78,6 +78,8 @@ while not @wants_to_exit
     @wants_to_exit = true
   end
 end
+puts "DA LIST"
+puts @students
 Studentin.write(@students) unless @do_not_write
 #Course.write(@courses)
 

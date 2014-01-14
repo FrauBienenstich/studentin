@@ -5,8 +5,8 @@ require './db_persistable.rb'
 require './course.rb'
 
 class Studentin  
-  attr_reader :courses, :last_name, :first_name, :matrikelnummer, :id
-  attr_accessor :studiengang
+  attr_reader :courses, :last_name, :first_name, :matrikelnummer
+  attr_accessor :studiengang, :id
 
   include DbPersistable
 
