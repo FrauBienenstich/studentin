@@ -15,35 +15,6 @@ class Studentin
     [@first_name, @last_name, @studiengang, @matrikelnummer]
   end
 
-  # def sql_queries#??
-  #   begin
-  #     con = Mysql.new 'localhost', 'root', ''
-
-  #     all_dbs = con.list_dbs
-  #     all_dbs.each do |db|
-  #       puts db
-  #     end
-  #     puts "-----"
-
-  #     con.query("use studierendenverwaltung;")
-  #     result = con.query("show tables;")
-  #     puts "#{result.num_rows} tables in the db."
-  #     result.num_rows.times do
-  #       puts result.fetch_row.join("\s")
-  #     end
-
-  #     con.query("")
-  #       #Inhalt aus Textfile!?)
-        
-  #   rescue Mysql::Error => e
-  #     puts e.errno
-  #     puts e.error
-
-  #   ensure
-  #     con.close if con
-  #   end
-  # end
-
   def initialize(id = nil, first_name, last_name, fach, matrikelnummer)
     @id = id
     @first_name = first_name
@@ -61,14 +32,6 @@ class Studentin
   def to_s
     "'Last Name: #{@last_name}, first_name: #{@first_name}, Studiengang: #{@studiengang}, Matrikelnummer: #{@matrikelnummer}'"
   end
-
-  # def new_studentin
-  #   Studentin.initialize
-
-  #   if @students.length == 0
-  # @students << susi = Studentin.new("1", "Müller", "Susanne", anglistik, 123456 )
-
-  # end
  
   def wechseln!(studiengang)
     @studiengang = studiengang
@@ -91,9 +54,9 @@ class Studentin
 
   def leave_course(course)
     puts "calling leave course with parameters #{course}"
-    if course#!!!!!!! kein kurs, was wenn man B aufruft? vermeiden dass while loop
-      @courses.delete(course) #deletes course from array
-      course.lose(self) #simultaneously calls "drop_out" on course
+    if course
+      @courses.delete(course)
+      course.lose(self)
     else
 
     end

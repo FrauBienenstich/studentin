@@ -33,7 +33,6 @@ module DbPersistable
       @class_to_create
     end
 
-    # class_to_create = base
     def class_to_create=(base)
       @class_to_create = base
     end

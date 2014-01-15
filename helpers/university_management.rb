@@ -106,7 +106,7 @@ class UniversityManagement
     end
   end 
 
-  def self.is_id_unique?(id, students)#TODO unique_id?
+  def self.unique_id?(id, students)
     index_of_student_with_this_id = students.find_index { |studentin| studentin.id == id.to_s}
     if index_of_student_with_this_id == nil
       return true
@@ -116,7 +116,7 @@ class UniversityManagement
   end
 
   def self.find_unique_id(id, students)
-    if self.is_id_unique?(id, students)
+    if self.unique_id?(id, students)
       return id
     else
       self.find_unique_id(id + 1, students)

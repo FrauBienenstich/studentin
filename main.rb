@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-#require '../studentin.rb'
+require './models/studentin.rb'
 require './models/course.rb'
 require './models/studiengang.rb'
 require './helpers/my_string.rb'
@@ -9,15 +9,8 @@ require './db/db_persistable.rb'
 require './db/seeds.rb'
 require 'mysql'
 
-#@students = Studentin.read || []
-# --> ok to just call read in seeds.rb?
-#@courses = Course.read || []
 
-@students = Studentin.read || [] #--> liest aus db
-
-#con = Mysql.new 'localhost', 'root', ''
-#con.query("use studierendenverwaltung;")
-#con.query("truncate table studentinnen;")
+@students = Studentin.read || []
 
 @wants_to_exit = false
 @do_not_write = false
@@ -64,14 +57,10 @@ while not @wants_to_exit
           end
         end
 
-      
-
       purpose = nil
       course = nil
     end
 
-    # sleep 5
-    # system('clear')
   rescue SystemExit, Interrupt
     @wants_to_exit = true
     @do_not_write = true
@@ -83,6 +72,3 @@ end
 puts "DA LIST"
 puts @students
 Studentin.write(@students) unless @do_not_write
-#Course.write(@courses)
-
-
