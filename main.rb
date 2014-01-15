@@ -34,7 +34,7 @@ while not @wants_to_exit
 
       case purpose
       when "A"
-        studentin = UniversityManagement.create_new_student(@students) # hier passiert schon db eintrag
+        studentin = UniversityManagement.create_new_student(@students)
         @students << studentin
       when "B"
         studentin = UniversityManagement.select_studentin(@students)
