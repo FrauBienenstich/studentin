@@ -1,8 +1,8 @@
 # encoding: UTF-8
-require './studiengang.rb'
-require './db_persistable.rb'
+require_relative 'studiengang'
+require_relative '../db/db_persistable.rb'
 #require './db_persistable_courses.rb'
-require './course.rb'
+require_relative 'course'
 
 class Studentin  
   attr_reader :courses, :last_name, :first_name, :matrikelnummer

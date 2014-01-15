@@ -1,10 +1,10 @@
 # encoding: UTF-8
-require './studentin.rb'
-require './course.rb'
-require './studiengang.rb'
-require './my_string.rb'
-require './university_management.rb'
-require './db_persistable.rb'
+require_relative '../models/studentin'
+require_relative '../models/course'
+require_relative '../models/studiengang'
+require_relative '../helpers/my_string'
+require_relative '../helpers/university_management'
+require_relative '../db/db_persistable'
 
 subjects = []
 

@@ -1,6 +1,6 @@
 # encoding: UTF-8
-require './studentin.rb'
-require './db_persistable.rb'
+require_relative 'studentin'
+require_relative '../db/db_persistable.rb'
 
 class Course
   attr_reader :studentinnen

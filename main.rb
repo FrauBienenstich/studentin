@@ -1,13 +1,12 @@
 # encoding: UTF-8
 
-require './studentin.rb'
-require './course.rb'
-require './studiengang.rb'
-require './my_string.rb'
-require './university_management.rb'
-require './db_persistable.rb'
-require './db_persistable_courses.rb'
-require './seeds.rb'
+#require '../studentin.rb'
+require './models/course.rb'
+require './models/studiengang.rb'
+require './helpers/my_string.rb'
+require './helpers/university_management.rb'
+require './db/db_persistable.rb'
+require './db/seeds.rb'
 require 'mysql'
 
 #@students = Studentin.read || []
