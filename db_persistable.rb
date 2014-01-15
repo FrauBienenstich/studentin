@@ -95,8 +95,8 @@ module DbPersistable
       con
     end
 
-    def delete(student)
-      con = establish_db_connection("studierendenverwaltung")
+    def delete(student, database_name="studierendenverwaltung")
+      con = establish_db_connection(database_name)
       delete_statement = con.prepare("DELETE FROM studentinnen WHERE id = ?")
       delete_statement.execute student.id
 

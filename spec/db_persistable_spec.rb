@@ -44,6 +44,10 @@ describe DbPersistable do
       should_be_similar_2(list_to_read[0], @studentin)
 
     end
+
+    it "has an id after write has been executed" do
+      pending
+    end
   end
 
 
@@ -52,9 +56,9 @@ describe DbPersistable do
 
       Studentin.write(@liste,"studierendenverwaltung_test")
 
-      result = Studentin.read("studierendenverwaltung_test")
+      read_list = Studentin.read("studierendenverwaltung_test")
 
-      should_be_similar @liste, result
+      should_be_similar @liste, read_list
     end
   end
 
@@ -69,7 +73,12 @@ describe DbPersistable do
 
   describe "delete" do
     it "deletes a student from the database" do
-      
+      Studentin.write(@liste, "studierendenverwaltung_test")
+      Studentin.delete(@studentin,"studierendenverwaltung_test")
+      read_list = Studentin.read("studierendenverwaltung_test")
+
+      expect(read_list).to be_empty
+
     end
   end
 end
