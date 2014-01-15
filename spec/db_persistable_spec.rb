@@ -28,7 +28,6 @@ describe DbPersistable do
     Studentin.clear_database
   end
 
-  #after_do: drop table xy
   describe "write" do
     it "saves the given list to the database" do
 
@@ -56,6 +55,21 @@ describe DbPersistable do
       result = Studentin.read("studierendenverwaltung_test")
 
       should_be_similar @liste, result
+    end
+  end
+
+  describe "read" do
+    it "returns a list of students" do
+      Studentin.write(@liste,"studierendenverwaltung_test")
+      read_list = Studentin.read("studierendenverwaltung_test")
+
+      should_be_similar @liste, read_list
+    end
+  end
+
+  describe "delete" do
+    it "deletes a student from the database" do
+      
     end
   end
 end
