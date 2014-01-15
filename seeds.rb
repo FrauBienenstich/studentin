@@ -29,13 +29,13 @@ if @students.length == 0
   @students << emma = Studentin.new("Emma", "Züller", "Sport", 1123456 )
   @students << helga = Studentin.new("Helga", "Rüller", "Sport", 1123456 )
   
-  susi.join_course(kurs1)
-  lulu.join_course(kurs1)
-  mimi.join_course(kurs1)
-  lili.join_course(kurs1)
-  anna.join_course(kurs1)
-  emma.join_course(kurs1)
-  helga.join_course(kurs1)
+  # susi.join_course(kurs1)
+  # lulu.join_course(kurs1)
+  # mimi.join_course(kurs1)
+  # lili.join_course(kurs1)
+  # anna.join_course(kurs1)
+  # emma.join_course(kurs1)
+  # helga.join_course(kurs1)
 
   helga.leave_course(kurs1)
 
