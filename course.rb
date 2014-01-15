@@ -1,14 +1,12 @@
 # encoding: UTF-8
 require './studentin.rb'
 require './db_persistable.rb'
-#require './db_persistable_courses'
 
 class Course
   attr_reader :studentinnen
   attr_reader :title
 
   include DbPersistable
-#  include DbPersistableCourses
 
 
   def get_values_to_save
@@ -44,7 +42,7 @@ class Course
       puts "#{studentin.last_name}, #{studentin.first_name} belegt jetzt #{self.title}".yellow
       puts
     else
-
+      puts @studentinnen
       raise Exception.new("#{self.title} ist voll, tut uns leid Frau #{studentin.last_name}.".red)
 
     end

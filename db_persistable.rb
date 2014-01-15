@@ -106,7 +106,7 @@ module DbPersistable
     def write(list, database_name="studierendenverwaltung")
 
       begin
-        puts "_________________________________________________________" # wenn am ende gerufen als Klassenm. liste mit korrekter anzahl
+        puts "_________________________________________________________"
         con = establish_db_connection(database_name)
         insert_statement = con.prepare "INSERT INTO studentinnen(first_name, last_name, studiengang, matrikelnummer) VALUES(?, ?, ?, ?);"
         update_statement = con.prepare("update studentinnen set first_name = ? where id = ? ;")
