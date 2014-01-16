@@ -14,7 +14,6 @@ module DbPersistable
   end
 
   def write
-    puts "THE INSTANCE METHOD WRITE IS CALLED".pink
     self.class.write([self]) # class method is called on instance
   end
 
@@ -55,7 +54,6 @@ module DbPersistable
     end
 
     def read(database_name="studierendenverwaltung")
-      puts "THE READ METHOD IS CALLED!!!!".pink
       
       begin
         con = establish_db_connection(database_name)
@@ -105,7 +103,6 @@ module DbPersistable
     def write(list, database_name="studierendenverwaltung")
 
       begin
-        puts "_________________________________________________________"
         con = establish_db_connection(database_name)
         insert_statement = con.prepare "INSERT INTO studentinnen(first_name, last_name, studiengang, matrikelnummer) VALUES(?, ?, ?, ?);"
         update_statement = con.prepare("update studentinnen set first_name = ? where id = ? ;")
@@ -116,11 +113,13 @@ module DbPersistable
           studiengang = student.studiengang
           matrikelnummer = student.matrikelnummer
           if student.persisted?
-            puts "UPDATING"
             update_statement.execute student.first_name, student.id
           else
-            puts "INSERTING"
             insert_statement.execute first_name, last_name, studiengang, matrikelnummer
+            # after inserting the object into the db, it gets a new id on the db side
+            # however, on "our" side, we dont know this ID yet.
+            # con.insert_id gives us the last id from insert statement from the db
+            # so keep it
             student.id = con.insert_id # I don't quite get why I need this!
           end
         end

@@ -69,6 +69,5 @@ while not @wants_to_exit
     @wants_to_exit = true
   end
 end
-puts "DA LIST"
-puts @students
+
 Studentin.write(@students) unless @do_not_write

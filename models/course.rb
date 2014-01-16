@@ -26,7 +26,6 @@ class Course
   end
 
   def gain(studentin)
-    puts "calling gain #{studentin}"
     @studentinnen.each do |s|
       if s.first_name == studentin.first_name
 
@@ -50,7 +49,6 @@ class Course
   end
 
   def lose(studentin)
-    puts "now losing #{studentin.first_name} #{@studentinnen.length}".yellow
 
     if @studentinnen.include?(studentin)
 

@@ -86,15 +86,9 @@ class UniversityManagement
 
     highest_id = student_ids.max
 
-
-    #new_id = highest_id + 1#self.find_unique_id(highest_id, preexisting_students) # höchste vergebene id
-
-
     new_studentin = Studentin.new(new_first_name, new_last_name, new_students_subject, new_students_matrikelnummer )
 
-    puts "Errmerrgerd".pink
     new_studentin.write
-    puts "a new studentin in ze db?!!!".pink
 
     puts "You successfully created Studentin #{new_first_name} #{new_last_name}!".pink
     
